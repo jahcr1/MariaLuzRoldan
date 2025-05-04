@@ -1,3 +1,4 @@
+<?php // Vista de detalle del producto (libro). Muestra información específica de un libro seleccionado. ?>
 <?php
 // Incluir header
 require_once APPROOT . '/Views/templates/header.php';

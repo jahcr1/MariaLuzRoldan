@@ -1,3 +1,5 @@
+    <?php // Plantilla de pie de página: incluye cierre de etiquetas HTML, scripts JS globales y/o información de copyright. ?>
+
     </div> <!-- Cierre de .container (contenido principal) -->
 </main> <!-- Cierre de .main-content -->
 

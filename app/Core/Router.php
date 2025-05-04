@@ -1,8 +1,9 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Core;
+
+// Clase Router: maneja las rutas de la aplicación, asociando URLs y métodos HTTP a controladores y acciones.
 
 class Router {
     protected array $routes = [];

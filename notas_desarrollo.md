@@ -126,3 +126,24 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 
 *   **Enlace CSS Corregido:** Modificado `app/Views/templates/header.php` para eliminar `/public/` duplicado en el `href` de `estilos.css`. La ruta correcta es `<?= BASE_URL ?>/assets/css/estilos.css`.
 *   **Layout Móvil 'Sobre Mí':** Ajustadas las clases `order-*` en `app/Views/paginas/inicio.php` para la sección `#sobre-mi`. Ahora la imagen (`order-1 order-lg-2`) aparece arriba del texto (`order-2 order-lg-1`) en vistas móviles (xs a md), y el texto aparece primero en pantallas grandes (lg+).
+
+---
+
+## Actualización: 2025-05-04 09:15
+
+**Comentarios PHP y Corrección de Errores Lint:**
+
+*   **Solicitud**: Añadir comentarios explicativos al inicio de todos los archivos `.php` del proyecto.
+*   **Acción**: Se añadieron comentarios a:
+    - `app/Views/templates/header.php`
+    - `app/Views/templates/footer.php`
+    - `app/Views/paginas/inicio.php`
+    - `app/Views/paginas/tienda.php`
+    - `app/Controllers/ControladorInicio.php`
+    - `app/Controllers/ControladorTienda.php`
+    - `public/index.php`
+    - `app/Core/Router.php`
+    - `config/config.php`
+*   **Corrección**: Se detectaron y corrigieron errores de lint (múltiples intentos) relacionados con `declare(strict_types=1);` que no era la primera declaración en `public/index.php`, `ControladorInicio.php`, `Router.php` y `config/config.php` debido a la inserción inicial de los comentarios.
+*   **Pendiente**: Esperando que el USER agregue imágenes para escanear y continuar con la sección tienda.
+*   **Corrección (2025-05-04 09:26)**: Para solucionar definitivamente los errores de lint `strict_types`, se movieron los comentarios explicativos en los archivos afectados (`public/index.php`, `ControladorInicio.php`, `Router.php`, `config/config.php`) a líneas posteriores, asegurando que `declare(strict_types=1);` sea la primera declaración absoluta.

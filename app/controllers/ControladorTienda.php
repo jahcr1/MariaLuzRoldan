@@ -1,4 +1,4 @@
-<?php
+<?php // Controlador para la página de detalle de la tienda. Gestiona la obtención y muestra de datos de un libro específico. ?>
 
 namespace App\Controllers;
 

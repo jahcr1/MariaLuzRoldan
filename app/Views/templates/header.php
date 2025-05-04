@@ -1,3 +1,4 @@
+<?php // Plantilla de cabecera: incluye <head>, metadatos, enlaces CSS/JS globales y inicio del <body>. ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

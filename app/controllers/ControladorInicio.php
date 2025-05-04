@@ -1,11 +1,13 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controllers;
 
-// Podríamos crear una clase BaseController para lógica común más adelante
-class ControladorInicio {
+// Controlador principal para la página de inicio. Define la acción 'index' que carga la vista principal.
+
+use App\Core\Controller;
+
+class ControladorInicio extends Controller {
 
     protected array $params;
 

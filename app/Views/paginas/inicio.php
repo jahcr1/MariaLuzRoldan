@@ -1,3 +1,4 @@
+<?php // Vista principal de la página de inicio. Muestra las diferentes secciones como slider, sobre mí, tienda, etc. ?>
 <?php
 // Asegurarse de que las variables están definidas para evitar errores
 $pageTitle = $pageTitle ?? 'Bienvenido';

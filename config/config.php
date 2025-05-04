@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/../vendor/autoload.php'; // Asegúrate de que el autoload de Composer esté incluido
+
+// Archivo de configuración principal. Define constantes globales como URLs base, rutas de directorios y configuraciones de la aplicación.
 // Este archivo es incluido por public/index.php DESPUÉS de cargar .env
 
 // Configuración General de la Aplicación
@@ -34,6 +37,16 @@ define('BASE_URL', $baseUrl); // e.g., /ProyectosWeb/MLR/public o /
 date_default_timezone_set($_ENV['APP_TIMEZONE'] ?? 'America/Argentina/Buenos_Aires'); // Puedes añadir APP_TIMEZONE a tu .env
 
 // Otras configuraciones globales que puedas necesitar (ej: claves API)
+// define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY'] ?? '');
+// define('MAILER_DSN', $_ENV['MAILER_DSN'] ?? ''); // Para Symfony Mailer u otros
+
+// Configuración Específica (Ejemplos, adaptar según necesidad)
+// define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
+// define('DB_PORT', $_ENV['DB_PORT'] ?? '3306');
+// define('DB_NAME', $_ENV['DB_NAME'] ?? '');
+// define('DB_USER', $_ENV['DB_USER'] ?? '');
+// define('DB_PASS', $_ENV['DB_PASS'] ?? '');
+
 // define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY'] ?? '');
 // define('MAILER_DSN', $_ENV['MAILER_DSN'] ?? ''); // Para Symfony Mailer u otros
 

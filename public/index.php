@@ -1,9 +1,10 @@
 <?php
-
 declare(strict_types=1);
 
 use Dotenv\Dotenv;
 use App\Core\Router;
+
+// Punto de entrada principal (Front Controller). Inicializa la aplicación y dirige las solicitudes al Router.
 
 // Constantes de Rutas Principales
 define('BASE_PATH', dirname(__DIR__));
