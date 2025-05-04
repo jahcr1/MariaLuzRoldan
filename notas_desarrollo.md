@@ -147,3 +147,8 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 *   **Corrección**: Se detectaron y corrigieron errores de lint (múltiples intentos) relacionados con `declare(strict_types=1);` que no era la primera declaración en `public/index.php`, `ControladorInicio.php`, `Router.php` y `config/config.php` debido a la inserción inicial de los comentarios.
 *   **Pendiente**: Esperando que el USER agregue imágenes para escanear y continuar con la sección tienda.
 *   **Corrección (2025-05-04 09:26)**: Para solucionar definitivamente los errores de lint `strict_types`, se movieron los comentarios explicativos en los archivos afectados (`public/index.php`, `ControladorInicio.php`, `Router.php`, `config/config.php`) a líneas posteriores, asegurando que `declare(strict_types=1);` sea la primera declaración absoluta.
+
+### 2025-05-04 09:31
+- **Error Fatal Detectado**: `Fatal error: Uncaught Error: Class "App\Core\Controller" not found` en `ControladorInicio.php`.
+- **Causa**: `ControladorInicio` intentaba extender `App\Core\Controller`, pero el archivo `app/Core/Controller.php` no existía.
+- **Solución**: Se creó el archivo `app/Core/Controller.php` con una definición de clase base `Controller`.
