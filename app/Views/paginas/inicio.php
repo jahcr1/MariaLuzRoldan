@@ -93,6 +93,40 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
     </div>
 </section>
 
+<!-- ==========================
+     SECCIÓN SOBRE MÍ
+     =========================== -->
+<section id="sobre-mi" class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-center mb-4 mb-lg-0" data-aos="fade-right">
+                <!-- Imagen de la Autora (Placeholder) -->
+                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
+                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
+            </div>
+            <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+                <h2 class="display-5 fw-bold mb-3">Sobre Mí</h2>
+                <p class="lead">Un breve párrafo introductorio sobre la autora. Aquí puedes destacar tu pasión por la escritura, tu trayectoria o lo que te inspira.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac erat ante. Vivamus cursus odio non nisi semper, et dictum nisl fermentum. Sed eget ipsum sit amet metus finibus laoreet.</p>
+                
+                <!-- Iconos Redes Sociales (Placeholders - Necesitas Font Awesome u otra librería) -->
+                <div class="mt-4 mb-4">
+                    <h5 class="mb-2">Sígueme en:</h5>
+                    <a href="#" class="btn btn-outline-primary btn-sm me-2" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a> <!-- Icono Placeholder -->
+                    <a href="#" class="btn btn-outline-info btn-sm me-2" aria-label="Twitter"><i class="fab fa-twitter"></i> Twitter</a> <!-- Icono Placeholder -->
+                    <a href="#" class="btn btn-outline-danger btn-sm" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a> <!-- Icono Placeholder -->
+                    <!-- Añade más redes si es necesario -->
+                </div>
+
+                <!-- Botón Ver Más -->
+                <a href="#" class="btn btn-primary">Conoce Más Detalles</a>
+                <!-- Deberíamos crear sobre-mi-detalle.php y enlazarlo así: -->
+                <!-- <a href="<?= BASE_URL ?>/sobre-mi-detalle" class="btn btn-primary">Conoce Más Detalles</a> -->
+            </div>
+        </div>
+    </div>
+</section>
+
 <main class="container mt-4">
     <div class="jumbotron bg-light p-5 rounded-lg m-3" data-aos="fade-up">
         <h1 class="display-4"><?= htmlspecialchars($pageTitle) ?></h1>

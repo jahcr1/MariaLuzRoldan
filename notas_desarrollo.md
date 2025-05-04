@@ -62,3 +62,18 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 *   **Archivo de Registro de Prompts:** Creado `notas_prompts.md` para registrar las interacciones de la conversación a partir de ahora.
 
 ---
+
+## Actualización: 2025-05-04 07:58
+
+**Sección "Sobre Mí":**
+
+*   Añadida la estructura HTML para la sección `#sobre-mi` en `inicio.php`.
+*   Diseño con rejilla Bootstrap (`col-lg-4` para imagen, `col-lg-8` para texto).
+*   Incluye placeholders para:
+    *   Imagen de autora (redondeada, con sombra).
+    *   Texto introductorio y párrafo Lorem Ipsum.
+    *   Iconos de redes sociales (requerirá librería externa como Font Awesome).
+    *   Botón "Ver Más" (enlace pendiente a futura página `/sobre-mi-detalle`).
+*   Aplicados efectos de animación `data-aos` (`fade-right`, `fade-left`).
+
+---
