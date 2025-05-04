@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pageTitle ?? APP_NAME ?></title>
     <meta name="description" content="<?= $pageDescription ?? '' ?>">
 
     <!-- Bootstrap CSS (CDN) -->
@@ -11,6 +10,14 @@
 
     <!-- AOS CSS (CDN) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Estilos Personalizados -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/assets/css/estilos.css">
+
+    <title><?= htmlspecialchars($pageTitle ?? APP_NAME) ?></title>
 
     <!-- Favicon (Ejemplo) -->
     <!-- <link rel="icon" href="<?= BASE_URL ?>/assets/images/favicon.ico"> -->

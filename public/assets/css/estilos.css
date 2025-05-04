@@ -1,0 +1,42 @@
+/* Estilos Generales y Personalizados */
+
+/* --- Estilos para Botón Personalizado 'Marilu 1' con Gradiente --- */
+.btn-marilu1.gradiente {
+    /* Puedes usar variables CSS para los colores si prefieres */
+    --color-start: #e96443; /* Naranja */
+    --color-end: #904e95;   /* Púrpura */
+
+    background-image: linear-gradient(to right, var(--color-start) 0%, var(--color-end) 100%);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem; /* Ajusta padding */
+    font-weight: bold;
+    border-radius: 50px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background-size: 200% auto; /* Para efecto hover */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-marilu1.gradiente:hover {
+    background-position: right center; /* Cambia dirección del gradiente */
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- Separación entre secciones --- */
+section {
+    margin-bottom: 3rem; /* Margen inferior por defecto para secciones */
+}
+
+/* Ajustes responsivos si son necesarios */
+@media (min-width: 992px) { /* lg y superior */
+    section {
+        margin-bottom: 4rem; /* Mayor margen en pantallas grandes */
+    }
+}
+
+/* Puedes añadir más estilos aquí */

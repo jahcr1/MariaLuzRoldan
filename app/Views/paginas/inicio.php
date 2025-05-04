@@ -7,7 +7,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 <!-- ==========================
      SECCIÓN SLIDER PROPAGANDA
      =========================== -->
-<section id="slider-propaganda" class="mb-5">
+<section id="slider-propaganda">
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -73,22 +73,24 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 <!-- ==========================
      SECCIÓN NUEVOS LANZAMIENTOS
      =========================== -->
-<section id="nuevos-lanzamientos" class="container my-5 py-5">
-    <div class="row align-items-center">
-        <div class="col-md-5" data-aos="fade-right">
-            <!-- Portada del Libro (Placeholder) -->
-            <!-- Reemplaza '...' con la ruta a la imagen. Tamaño ~400x600 -->
-            <img src="https://via.placeholder.com/400x600/eee/888?text=Portada+Libro" class="img-fluid rounded shadow-lg" alt="Portada Último Lanzamiento">
-        </div>
-        <div class="col-md-7" data-aos="fade-left" data-aos-delay="200">
-            <h2 class="display-5 fw-bold mb-3">Título del Último Lanzamiento</h2>
-            <p class="text-muted mb-2">Fecha de Lanzamiento: DD/MM/AAAA</p>
-            <p class="lead">Aquí va una breve reseña o descripción cautivadora del libro. Este texto será modificable desde el panel de administración en el futuro, permitiendo destacar las novedades más recientes de forma sencilla.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <!-- Enlace a la futura página nuevoslanzamientos.php -->
-            <a href="#" class="btn btn-primary btn-lg mt-3">Más Información</a>
-            <!-- Deberíamos crear nuevoslanzamientos.php y enlazarlo así: -->
-            <!-- <a href="<?= BASE_URL ?>/nuevoslanzamientos" class="btn btn-primary btn-lg mt-3">Más Información</a> -->
+<section id="nuevos-lanzamientos" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5" data-aos="fade-right">
+                <!-- Portada del Libro (Placeholder) -->
+                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño ~400x600 -->
+                <img src="https://via.placeholder.com/400x600/eee/888?text=Portada+Libro" class="img-fluid rounded shadow-lg" alt="Portada Último Lanzamiento">
+            </div>
+            <div class="col-md-7" data-aos="fade-left" data-aos-delay="200">
+                <h2 class="display-5 fw-bold mb-3">Título del Último Lanzamiento</h2>
+                <p class="text-muted mb-2">Fecha de Lanzamiento: DD/MM/AAAA</p>
+                <p class="lead">Aquí va una breve reseña o descripción cautivadora del libro. Este texto será modificable desde el panel de administración en el futuro, permitiendo destacar las novedades más recientes de forma sencilla.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <!-- Enlace a la futura página nuevoslanzamientos.php -->
+                <a href="#" class="btn btn-primary btn-lg mt-3">Más Información</a>
+                <!-- Deberíamos crear nuevoslanzamientos.php y enlazarlo así: -->
+                <!-- <a href="<?= BASE_URL ?>/nuevoslanzamientos" class="btn btn-primary btn-lg mt-3">Más Información</a> -->
+            </div>
         </div>
     </div>
 </section>
@@ -99,29 +101,31 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 <section id="sobre-mi" class="py-5 bg-light">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-4 text-center mb-4 mb-lg-0" data-aos="fade-right">
-                <!-- Imagen de la Autora (Placeholder) -->
-                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
-                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
-            </div>
-            <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+            <!-- Columna de Texto (Ahora a la izquierda) -->
+            <div class="col-lg-8 order-lg-1 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
                 <h2 class="display-5 fw-bold mb-3">Sobre Mí</h2>
                 <p class="lead">Un breve párrafo introductorio sobre la autora. Aquí puedes destacar tu pasión por la escritura, tu trayectoria o lo que te inspira.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac erat ante. Vivamus cursus odio non nisi semper, et dictum nisl fermentum. Sed eget ipsum sit amet metus finibus laoreet.</p>
                 
-                <!-- Iconos Redes Sociales (Placeholders - Necesitas Font Awesome u otra librería) -->
+                <!-- Iconos Redes Sociales (Solo iconos - Necesitas Font Awesome u otra librería) -->
                 <div class="mt-4 mb-4">
                     <h5 class="mb-2">Sígueme en:</h5>
-                    <a href="#" class="btn btn-outline-primary btn-sm me-2" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a> <!-- Icono Placeholder -->
-                    <a href="#" class="btn btn-outline-info btn-sm me-2" aria-label="Twitter"><i class="fab fa-twitter"></i> Twitter</a> <!-- Icono Placeholder -->
-                    <a href="#" class="btn btn-outline-danger btn-sm" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a> <!-- Icono Placeholder -->
+                    <a href="#" class="btn btn-outline-primary btn-sm me-2" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="btn btn-outline-danger btn-sm me-2" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:tuemail@ejemplo.com" class="btn btn-outline-secondary btn-sm" aria-label="Enviar Correo"><i class="fas fa-envelope"></i></a>
                     <!-- Añade más redes si es necesario -->
                 </div>
 
-                <!-- Botón Ver Más -->
-                <a href="#" class="btn btn-primary">Conoce Más Detalles</a>
+                <!-- Botón Ver Más con clase personalizada -->
+                <a href="#" class="btn btn-marilu1 gradiente">Conoce Más Detalles</a>
                 <!-- Deberíamos crear sobre-mi-detalle.php y enlazarlo así: -->
-                <!-- <a href="<?= BASE_URL ?>/sobre-mi-detalle" class="btn btn-primary">Conoce Más Detalles</a> -->
+                <!-- <a href="<?= BASE_URL ?>/sobre-mi-detalle" class="btn btn-marilu1 gradiente">Conoce Más Detalles</a> -->
+            </div>
+            <!-- Columna de Imagen (Ahora a la derecha) -->
+            <div class="col-lg-4 text-center order-lg-2" data-aos="fade-left">
+                <!-- Imagen de la Autora (Placeholder) -->
+                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
+                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
             </div>
         </div>
     </div>

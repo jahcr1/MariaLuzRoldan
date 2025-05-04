@@ -77,3 +77,25 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 *   Aplicados efectos de animación `data-aos` (`fade-right`, `fade-left`).
 
 ---
+
+## Actualización: 2025-05-04 08:10
+
+**Refinamientos Sección "Sobre Mí":**
+
+*   **Inversión de Columnas:** En `#sobre-mi` (`inicio.php`), se movió la imagen (`col-lg-4`) a la derecha (`order-lg-2`) y el texto (`col-lg-8`) a la izquierda (`order-lg-1`).
+*   **Iconos Sociales Simplificados:** Se eliminó el texto descriptivo junto a los iconos sociales en `#sobre-mi`, dejando solo los placeholders `<i>`.
+*   **CSS Personalizado:** Creado el archivo `public/css/custom.css` con estilos base para la clase `.btn-custom-gradient` (fondo gradiente de ejemplo, efecto hover básico).
+*   **Enlace CSS:** Añadido el enlace a `custom.css` en `app/Views/templates/header.php`.
+*   **Botón Personalizado:** Aplicada la clase `btn-custom-gradient` al botón "Conoce Más Detalles" en `#sobre-mi`.
+
+---
+
+## Actualización: 2025-05-04 08:27
+
+**Reorganización de Estilos y Botón Personalizado:**
+
+*   **CSS Reubicado:** Creado `public/assets/css/estilos.css` como archivo principal para estilos personalizados.
+*   **Clase Botón Definida:** Definida la clase `.btn-marilu1.gradiente` en `estilos.css` con un fondo gradiente (naranja a púrpura), bordes redondeados, sombra y efecto hover.
+*   **Enlace CSS Actualizado:** Modificada la ruta en `app/Views/templates/header.php` para apuntar a `public/assets/css/estilos.css`.
+*   **Clase Botón Aplicada:** Cambiada la clase del botón "Conoce Más Detalles" en la sección `#sobre-mi` (`inicio.php`) de `btn-primary btn-custom-gradient` a `btn-marilu1 gradiente`.
+*   **Márgenes Globales:** Añadidas reglas en `estilos.css` para aplicar un `margin-bottom` general a las etiquetas `<section>`, eliminando la necesidad de clases `mb-5` específicas en `inicio.php`.
