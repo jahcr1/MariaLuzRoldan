@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Dotenv\Dotenv;
+use App\Core\Router;
+
 // Constantes de Rutas Principales
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
@@ -14,36 +17,45 @@ require_once BASE_PATH . '/vendor/autoload.php';
 
 // Cargar variables de entorno
 try {
-    $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
+    $dotenv = Dotenv::createImmutable(BASE_PATH);
     $dotenv->load();
 } catch (\Dotenv\Exception\InvalidPathException $e) {
-    die('Error: No se pudo encontrar el archivo .env. Asegúrate de copiar .env.example a .env y configurarlo.');
+    error_log('Error Dotenv: ' . $e->getMessage()); 
+    die('Error crítico de configuración. No se pudo cargar el archivo .env. Revisa los logs del servidor.');
 }
 
 // Cargar configuración
 require_once CONFIG_PATH . '/config.php';
 require_once CONFIG_PATH . '/database.php';
 
-// --- Enrutamiento Básico (Placeholder) ---
-echo "<h1>Sitio MLR Funcionando!</h1>";
-echo "<p>Punto de entrada: index.php</p>";
+// Instanciar y usar el nuevo Router para manejar las solicitudes
+$router = new Router();
 
-// Aquí irá la lógica de un Router más sofisticado
-// para mapear la URL a un Controlador y Acción.
+// Definir las rutas de la aplicación
+$router->add('/', ['controller' => 'ControladorInicio', 'action' => 'index']);
+$router->add('/tienda', ['controller' => 'ShopController', 'action' => 'index']);
+$router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' => 'showBook']); // Ruta con parámetro
+$router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);
+$router->add('/admin/productos', ['controller' => 'Admin\ProductController', 'action' => 'index']); // Ruta admin
 
-// Ejemplo futuro:
-// $router = new App\Core\Router();
+// Obtener la URL solicitada (quitando el nombre del directorio base si es necesario)
+$url = $_SERVER['REQUEST_URI'];
 
-// // Definir rutas
-// $router->addRoute('/', ['HomeController', 'index']);
-// $router->addRoute('/tienda', ['ShopController', 'index']);
-// $router->addRoute('/tienda/libro/{id}', ['ShopController', 'showBook']); // Ruta con parámetro
-// $router->addRoute('/contacto', ['ContactController', 'index']);
-// $router->addRoute('/admin/productos', ['Admin\ProductController', 'index']); // Ruta admin
+// Determinar el path base si la app no está en la raíz del dominio
+$scriptName = $_SERVER['SCRIPT_NAME']; // Usualmente /ProyectosWeb/MLR/public/index.php
+$basePath = dirname($scriptName); // Usualmente /ProyectosWeb/MLR/public
 
-// // Obtener la ruta actual y despachar
-// $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-// $requestMethod = $_SERVER['REQUEST_METHOD'];
-// $router->dispatch($requestUri, $requestMethod);
+// Si la URL empieza con el basePath, quitarlo
+if ($basePath !== '/' && $basePath !== '\\' && strpos($url, $basePath) === 0) {
+    $url = substr($url, strlen($basePath));
+}
+
+// Asegurarse de que la URL empiece con / si no está vacía
+if (empty($url)) {
+    $url = '/';
+}
+
+// Despachar la ruta
+$router->dispatch($url);
 
 ?>
