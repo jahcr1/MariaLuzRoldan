@@ -21,7 +21,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             <!-- Slide 1 (Activo) -->
             <div class="carousel-item active">
                 <!-- Reemplaza '...' con la ruta a tu imagen. Tamaño recomendado: ~1920x800 -->
-                <img src="https://via.placeholder.com/1920x600/eee/888?text=Slider+Imagen+1" class="d-block w-100" alt="...">
+                <img src="<?= APP_URL ?>/assets/images/layout/slider1.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                     <h5>Título Slide 1</h5>
                     <p>Descripción breve o llamada a la acción para el slide 1.</p>
@@ -29,7 +29,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             </div>
             <!-- Slide 2 -->
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x600/ddd/777?text=Slider+Imagen+2" class="d-block w-100" alt="...">
+                <img src="<?= APP_URL ?>/assets/images/layout/slider2.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                     <h5>Título Slide 2</h5>
                     <p>Descripción breve o llamada a la acción para el slide 2.</p>
@@ -37,7 +37,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             </div>
             <!-- Slide 3 -->
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x600/ccc/666?text=Slider+Imagen+3" class="d-block w-100" alt="...">
+                <img src="<?= APP_URL ?>/assets/images/layout/slider3.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                     <h5>Título Slide 3</h5>
                     <p>Descripción breve o llamada a la acción para el slide 3.</p>
@@ -45,7 +45,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             </div>
              <!-- Slide 4 -->
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x600/bbb/555?text=Slider+Imagen+4" class="d-block w-100" alt="...">
+                <img src="<?= APP_URL ?>/assets/images/layout/slider4.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                     <h5>Título Slide 4</h5>
                     <p>Descripción breve o llamada a la acción para el slide 4.</p>
@@ -53,7 +53,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             </div>
              <!-- Slide 5 -->
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x600/aaa/444?text=Slider+Imagen+5" class="d-block w-100" alt="...">
+                <img src="<?= APP_URL ?>/assets/images/layout/slider1.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
                     <h5>Título Slide 5</h5>
                     <p>Descripción breve o llamada a la acción para el slide 5.</p>
@@ -80,7 +80,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             <div class="col-md-5" data-aos="fade-right">
                 <!-- Portada del Libro (Placeholder) -->
                 <!-- Reemplaza '...' con la ruta a la imagen. Tamaño ~400x600 -->
-                <img src="https://via.placeholder.com/400x600/eee/888?text=Portada+Libro" class="img-fluid rounded shadow-lg" alt="Portada Último Lanzamiento">
+                <img src="<?= APP_URL ?>/assets/images/libros/cantares0.jpg" class="img-fluid rounded shadow-lg" alt="Portada Último Lanzamiento">
             </div>
             <div class="col-md-7" data-aos="fade-left" data-aos-delay="200">
                 <h2 class="display-5 fw-bold mb-3">Título del Último Lanzamiento</h2>
@@ -106,7 +106,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
             <div class="col-lg-4 text-center order-1 order-lg-2" data-aos="fade-left">
                 <!-- Imagen de la Autora (Placeholder) -->
                 <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
-                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
+                <img src="<?= APP_URL ?>/assets/images/autora/autora1.png" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
             </div>
             <!-- Columna de Texto (Ahora orden 2 por defecto, 1 en lg) -->
             <div class="col-lg-8 order-2 order-lg-1 mb-4 mb-lg-0" data-aos="fade-right">
@@ -135,7 +135,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 <!-- ==========================
      SECCIÓN TIENDA
      =========================== -->
-<section id="tienda" class="py-5">
+     <section id="tienda" class="py-5">
     <div class="container">
         <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Explora Mis Libros</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
@@ -170,6 +170,108 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
         </div> <!-- fin .row -->
     </div> <!-- fin .container -->
 </section>
+
+<!-- ==========================
+     SECCIÓN NOTICIAS Y PRESENTACIONES
+     =========================== -->
+<section id="noticias" class="py-5">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Últimas Noticias y Presentaciones</h2>
+        <div class="row">
+            <!-- Columna Noticias (Contenido Dinámico PHP) -->
+            <div class="col-lg-7 mb-4 mb-lg-0" data-aos="fade-up">
+                <h3 class="mb-4">Noticias Recientes</h3>
+                <article class="mb-4 border-bottom pb-3">
+                    <h4><a href="#">Título Noticia 1 (Cargado desde DB)</a></h4>
+                    <p class="text-muted">Fecha Noticia 1</p>
+                    <p>Extracto de la noticia cargada desde la base de datos...</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Leer Más</a>
+                </article>
+                <article class="mb-4 border-bottom pb-3">
+                    <h4><a href="#">Título Noticia 2 (Cargado desde DB)</a></h4>
+                    <p class="text-muted">Fecha Noticia 2</p>
+                    <p>Otro extracto de noticia cargada dinámicamente...</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Leer Más</a>
+                </article>
+                <!-- Aquí iría la lógica PHP para cargar noticias -->
+                <p class="text-center fst-italic">[Placeholder: Aquí se cargarán dinámicamente las noticias]</p>
+            </div>
+
+            <!-- Columna Presentaciones -->
+            <div class="col-lg-5" data-aos="fade-left" data-aos-delay="100">
+                <h3 class="mb-4">Próximas Presentaciones</h3>
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Lugar Presentación 1</h5>
+                            <small class="text-muted">DD/MM/AAAA</small>
+                        </div>
+                        <p class="mb-1">Breve descripción o detalles del evento 1. Dirección, horario, etc.</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Lugar Presentación 2</h5>
+                            <small class="text-muted">DD/MM/AAAA</small>
+                        </div>
+                        <p class="mb-1">Breve descripción o detalles del evento 2.</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Lugar Presentación 3</h5>
+                            <small class="text-muted">DD/MM/AAAA</small>
+                        </div>
+                        <p class="mb-1">Breve descripción o detalles del evento 3.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================
+     SECCIÓN TEASER GALERÍA
+     =========================== -->
+<section id="galeria-index" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Galería de Fotos</h2>
+        <div class="row g-3 gallery-teaser">
+            <!-- Imagen 1 (más grande) -->
+            <div class="col-lg-6 col-md-12" data-aos="zoom-in">
+                <div class="gallery-item position-relative overflow-hidden rounded shadow">
+                    <img src="<?= APP_URL ?>/assets/images/gallery/placeholder1_large.jpg" class="img-fluid" alt="Galería Imagen 1">
+                    <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0">
+                        <i class="fas fa-search-plus fa-3x text-white"></i> <!-- Icono placeholder -->
+                    </div>
+                </div>
+            </div>
+            <!-- Imagen 2 (pequeña) -->
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                 <div class="gallery-item position-relative overflow-hidden rounded shadow">
+                    <img src="<?= APP_URL ?>/assets/images/gallery/placeholder2_small.jpg" class="img-fluid" alt="Galería Imagen 2">
+                     <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0">
+                        <i class="fas fa-search-plus fa-3x text-white"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Imagen 3 (pequeña) -->
+            <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                 <div class="gallery-item position-relative overflow-hidden rounded shadow">
+                    <img src="<?= APP_URL ?>/assets/images/gallery/placeholder3_small.jpg" class="img-fluid" alt="Galería Imagen 3">
+                     <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0">
+                        <i class="fas fa-search-plus fa-3x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <!-- Enlace a la futura página galeria.php -->
+            <a href="#" class="btn btn-primary btn-lg">Ver Galería Completa</a>
+            <!-- Debería ser algo como <a href="<?= APP_URL ?>/galeria" class="btn btn-primary btn-lg">Ver Galería Completa</a> -->
+        </div>
+    </div>
+</section>
+
+
 
 <main class="container mt-4">
     <div class="jumbotron bg-light p-5 rounded-lg m-3" data-aos="fade-up">

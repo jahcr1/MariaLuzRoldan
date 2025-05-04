@@ -40,3 +40,19 @@ section {
 }
 
 /* Puedes añadir más estilos aquí */
+
+/* Estilos Adicionales para Galería Teaser */
+.gallery-teaser .gallery-item {
+    cursor: pointer;
+}
+
+.gallery-teaser .gallery-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: opacity 0.3s ease;
+}
+
+.gallery-teaser .gallery-item:hover .gallery-overlay {
+    opacity: 1 !important; /* Usar !important si es necesario para sobreescribir otras reglas */
+}
+
+/* Asegúrate de tener Font Awesome incluido en tu header.php para los iconos */

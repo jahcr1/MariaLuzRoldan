@@ -152,3 +152,63 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 - **Error Fatal Detectado**: `Fatal error: Uncaught Error: Class "App\Core\Controller" not found` en `ControladorInicio.php`.
 - **Causa**: `ControladorInicio` intentaba extender `App\Core\Controller`, pero el archivo `app/Core/Controller.php` no existía.
 - **Solución**: Se creó el archivo `app/Core/Controller.php` con una definición de clase base `Controller`.
+
+### 2025-05-04 10:06
+- **Problema**: La imagen añadida en `inicio.php` (`public/assets/images/libros/cantares0.jpg`) no se mostraba.
+- **Investigación**: 
+    - Se confirmó que la imagen existe en la ruta especificada.
+    - Se verificó `config/config.php` y se encontró que la constante correcta para la URL base es `APP_URL`, no `BASE_URL`.
+- **Solución**: Se corrigió el `src` de la imagen en `inicio.php` para usar `<?= APP_URL ?>/...`.
+
+### 2025-05-04 10:22
+- **Problema**: Las imágenes añadidas al slider en `inicio.php` tampoco se muestran, a pesar de usar `APP_URL`.
+- **Investigación**:
+    - Se confirmó que los archivos `slider1.jpg` a `slider4.jpg` existen en `public/assets/images/layout/`.
+- **Diagnóstico Pendiente**: Se sugiere al USER revisar la consola del navegador (errores 404), el valor exacto de `APP_URL` en `.env`, probar la URL directa de la imagen, forzar recarga de caché y revisar sintaxis HTML/PHP cercana.
+
+### 2025-05-04 10:22
+- **Nota**: Se investigó el problema de las imágenes del slider no mostradas y se encontraron posibles causas:
+    - Errores de ruta en el `src` de las imágenes.
+    - Problemas de caché en el navegador.
+    - Errores de sintaxis en el código HTML/PHP.
+    - Problemas con la configuración de `APP_URL` en `.env`.
+    - Se sugiere al USER revisar la consola del navegador, probar la URL directa de la imagen y forzar la recarga de la caché para diagnosticar el problema.
+
+### 2025-05-04 10:35
+- **Problema Identificado**: El valor de `APP_URL` en `.env` era `http://localhost/ProyectosWeb/MLR/public`.
+- **Causa Raíz**: Al concatenar `APP_URL` con `/assets/...`, se creaba una ruta incorrecta (`.../public/assets/...`) porque el servidor web ya apunta a la carpeta `public` como raíz.
+- **Solución**: Se solicitó al USER **editar manualmente** el archivo `.env` (debido a restricciones de `.gitignore`) para cambiar `APP_URL` a `http://localhost/ProyectosWeb/MLR` (sin `/public`).
+
+### 2025-05-04 10:06
+- **Problema**: La imagen añadida en `inicio.php` (`public/assets/images/libros/cantares0.jpg`) no se mostraba.
+- **Investigación**: 
+    - Se confirmó que la imagen existe en la ruta especificada.
+    - Se verificó `config/config.php` y se encontró que la constante correcta para la URL base es `APP_URL`, no `BASE_URL`.
+- **Solución**: Se corrigió el `src` de la imagen en `inicio.php` para usar `<?= APP_URL ?>/...`.
+
+### 2025-05-04 10:22
+- **Problema**: Las imágenes añadidas al slider en `inicio.php` tampoco se muestran, a pesar de usar `APP_URL`.
+- **Investigación**:
+    - Se confirmó que los archivos `slider1.jpg` a `slider4.jpg` existen en `public/assets/images/layout/`.
+- **Diagnóstico Pendiente**: Se sugiere al USER revisar la consola del navegador (errores 404), el valor exacto de `APP_URL` en `.env`, probar la URL directa de la imagen, forzar recarga de caché y revisar sintaxis HTML/PHP cercana.
+
+### 2025-05-04 10:22
+- **Nota**: Se investigó el problema de las imágenes del slider no mostradas y se encontraron posibles causas:
+    - Errores de ruta en el `src` de las imágenes.
+    - Problemas de caché en el navegador.
+    - Errores de sintaxis en el código HTML/PHP.
+    - Problemas con la configuración de `APP_URL` en `.env`.
+    - Se sugiere al USER revisar la consola del navegador, probar la URL directa de la imagen y forzar la recarga de la caché para diagnosticar el problema.
+
+### 2025-05-04 10:35
+- **Problema Identificado**: El valor de `APP_URL` en `.env` era `http://localhost/ProyectosWeb/MLR/public`.
+- **Causa Raíz**: Al concatenar `APP_URL` con `/assets/...`, se creaba una ruta incorrecta (`.../public/assets/...`) porque el servidor web ya apunta a la carpeta `public` como raíz.
+- **Solución**: Se solicitó al USER **editar manualmente** el archivo `.env` (debido a restricciones de `.gitignore`) para cambiar `APP_URL` a `http://localhost/ProyectosWeb/MLR` (sin `/public`).
+
+### 2025-05-04 10:54
+- **Problema**: USER reportó inconsistencia: Slider mostraba imágenes (con `/public` en el `src` generado) pero otras secciones no (sin `/public`), a pesar de que `APP_URL` ya no tenía `/public`.
+- **Diagnóstico**: Se confirmó mediante `view_file` que las ediciones manuales del USER en `inicio.php` habían añadido `/public` a las rutas del slider pero no (o incorrectamente) a las otras secciones.
+- **Solución**: Se corrigió `inicio.php` para que TODAS las rutas de imágenes usen el formato consistente y correcto `<?= APP_URL ?>/assets/...` (eliminando `/public` donde estaba añadido manualmente y corrigiendo placeholders).
+
+### 2025-05-04 10:54
+- **Nota**: Se corrigieron las inconsistencias en las rutas de imágenes en `inicio.php`. Todas las rutas de imágenes ahora usan el formato consistente y correcto `<?= APP_URL ?>/assets/...` (eliminando `/public` donde estaba añadido manualmente y corrigiendo placeholders).
