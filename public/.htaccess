@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Establecer la base de reescritura si el proyecto no está en la raíz del dominio
+    # Ajusta '/ProyectosWeb/MLR/public/' si tu ruta es diferente
+    RewriteBase /ProyectosWeb/MLR/public/
+
+    # Redirigir todo el tráfico a index.php si no es un archivo o directorio existente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L,QSA] # QSA preserva los query strings
+</IfModule>
+
+# Opcional: Prevenir listado de directorios
+Options -Indexes
+
+# Opcional: Establecer codificación
+AddDefaultCharset UTF-8

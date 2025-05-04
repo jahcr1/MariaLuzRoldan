@@ -18,4 +18,10 @@
 
 # Ignorar configuración de IDEs (Opcional)
 .idea/
+
+# Windows thumbnail cache files
+Thumbs.db
+
+# macOS Finder files
+.DS_Store
 .vscode/
