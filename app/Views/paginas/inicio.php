@@ -101,8 +101,14 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 <section id="sobre-mi" class="py-5 bg-light">
     <div class="container">
         <div class="row align-items-center">
-            <!-- Columna de Texto (Ahora a la izquierda) -->
-            <div class="col-lg-8 order-lg-1 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
+            <!-- Columna de Imagen (Ahora orden 1 por defecto, 2 en lg) -->
+            <div class="col-lg-4 text-center order-1 order-lg-2" data-aos="fade-left">
+                <!-- Imagen de la Autora (Placeholder) -->
+                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
+                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
+            </div>
+            <!-- Columna de Texto (Ahora orden 2 por defecto, 1 en lg) -->
+            <div class="col-lg-8 order-2 order-lg-1 mb-4 mb-lg-0" data-aos="fade-right">
                 <h2 class="display-5 fw-bold mb-3">Sobre Mí</h2>
                 <p class="lead">Un breve párrafo introductorio sobre la autora. Aquí puedes destacar tu pasión por la escritura, tu trayectoria o lo que te inspira.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam ac erat ante. Vivamus cursus odio non nisi semper, et dictum nisl fermentum. Sed eget ipsum sit amet metus finibus laoreet.</p>
@@ -117,23 +123,56 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
                 </div>
 
                 <!-- Botón Ver Más con clase personalizada -->
-                <a href="#" class="btn btn-marilu1 gradiente">Conoce Más Detalles</a>
+                <a href="#" class="btn btn-marilu1-gradiente">Conoce Más Detalles</a>
                 <!-- Deberíamos crear sobre-mi-detalle.php y enlazarlo así: -->
-                <!-- <a href="<?= BASE_URL ?>/sobre-mi-detalle" class="btn btn-marilu1 gradiente">Conoce Más Detalles</a> -->
-            </div>
-            <!-- Columna de Imagen (Ahora a la derecha) -->
-            <div class="col-lg-4 text-center order-lg-2" data-aos="fade-left">
-                <!-- Imagen de la Autora (Placeholder) -->
-                <!-- Reemplaza '...' con la ruta a la imagen. Tamaño cuadrado ~300x300 o similar -->
-                <img src="https://via.placeholder.com/300x300/ddd/888?text=Foto+Autora" class="img-fluid rounded-circle shadow" alt="Foto de la Autora">
+                <!-- <a href="<?= BASE_URL ?>/sobre-mi-detalle" class="btn btn-marilu1-gradiente">Conoce Más Detalles</a> -->
             </div>
         </div>
     </div>
 </section>
 
+<!-- ==========================
+     SECCIÓN TIENDA
+     =========================== -->
+<section id="tienda" class="py-5">
+    <div class="container">
+        <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Explora Mis Libros</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            
+            <?php 
+            // --- Datos de ejemplo para la tienda (reemplazar con datos reales del Modelo) ---
+            $librosTienda = [
+                ['id' => 1, 'titulo' => 'Libro de Ejemplo 1', 'imagen' => 'https://via.placeholder.com/300x450/ddd/888?text=Libro+1', 'descripcion_corta' => 'Una breve descripción del primer libro.' ],
+                ['id' => 2, 'titulo' => 'Aventuras en Código', 'imagen' => 'https://via.placeholder.com/300x450/ddd/888?text=Libro+2', 'descripcion_corta' => 'Descubre los secretos de la programación.' ],
+                ['id' => 3, 'titulo' => 'El Misterio del CSS', 'imagen' => 'https://via.placeholder.com/300x450/ddd/888?text=Libro+3', 'descripcion_corta' => 'Estilos que te atraparán.' ],
+                ['id' => 4, 'titulo' => 'PHP: Más Allá del Eco', 'imagen' => 'https://via.placeholder.com/300x450/ddd/888?text=Libro+4', 'descripcion_corta' => 'Lógica del lado del servidor revelada.' ],
+                // Añade más libros aquí
+            ];
+            // --- Fin datos de ejemplo ---
+            ?>
+
+            <?php foreach ($librosTienda as $index => $libro): ?>
+            <div class="col" data-aos="fade-up" data-aos-delay="<?= $index * 100 ?>">
+                <div class="card h-100 shadow-sm">
+                    <a href="<?= BASE_URL ?>/tienda?id=<?= htmlspecialchars($libro['id']) ?>">
+                        <img src="<?= htmlspecialchars($libro['imagen']) ?>" class="card-img-top" alt="Portada de <?= htmlspecialchars($libro['titulo']) ?>">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title"><?= htmlspecialchars($libro['titulo']) ?></h5>
+                        <p class="card-text flex-grow-1"><?= htmlspecialchars($libro['descripcion_corta']) ?></p>
+                        <a href="<?= BASE_URL ?>/tienda?id=<?= htmlspecialchars($libro['id']) ?>" class="btn btn-marilu1-gradiente mt-auto align-self-start">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+        </div> <!-- fin .row -->
+    </div> <!-- fin .container -->
+</section>
+
 <main class="container mt-4">
     <div class="jumbotron bg-light p-5 rounded-lg m-3" data-aos="fade-up">
-        <h1 class="display-4"><?= htmlspecialchars($pageTitle) ?></h1>
+        <h1 class="display-4"><?= htmlspecialchars($pageTitle ?? APP_NAME) ?></h1>
         <p class="lead"><?= htmlspecialchars($pageDescription) ?></p>
         <hr class="my-4">
         <p>Este es el contenido principal de la página de inicio. ¡El Router y el Controlador funcionan!</p>

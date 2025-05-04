@@ -33,6 +33,7 @@ $router = new Router();
 
 // Definir las rutas de la aplicación
 $router->add('/', ['controller' => 'ControladorInicio', 'action' => 'index']);
+$router->add('/tienda', ['controller' => 'ControladorTienda', 'action' => 'index']);
 $router->add('/tienda', ['controller' => 'ShopController', 'action' => 'index']);
 $router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' => 'showBook']); // Ruta con parámetro
 $router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);

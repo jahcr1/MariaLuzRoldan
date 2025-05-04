@@ -99,3 +99,30 @@ Este documento registra las decisiones clave, cambios y pasos realizados durante
 *   **Enlace CSS Actualizado:** Modificada la ruta en `app/Views/templates/header.php` para apuntar a `public/assets/css/estilos.css`.
 *   **Clase Botón Aplicada:** Cambiada la clase del botón "Conoce Más Detalles" en la sección `#sobre-mi` (`inicio.php`) de `btn-primary btn-custom-gradient` a `btn-marilu1 gradiente`.
 *   **Márgenes Globales:** Añadidas reglas en `estilos.css` para aplicar un `margin-bottom` general a las etiquetas `<section>`, eliminando la necesidad de clases `mb-5` específicas en `inicio.php`.
+
+---
+
+## Actualización: 2025-05-04 08:53
+
+**Implementación Sección Tienda y Página de Detalle:**
+
+*   **Corrección Botón:** Verificadas y corregidas las clases CSS y HTML para el botón personalizado a `.btn-marilu1-gradiente`.
+*   **Controlador Tienda:** Creado `app/Controllers/ControladorTienda.php` para manejar la lógica de la página de detalle. Incluye obtención del `id` del libro desde `$_GET` y datos de ejemplo.
+*   **Vista Tienda:** Creada `app/Views/paginas/tienda.php` con la estructura:
+    *   Banner superior con nombre.
+    *   Layout de 2 columnas: Izquierda (Imagen grande, Quote), Derecha (Título, Autor, Etiquetas de ejemplo, Pestañas Bootstrap: Reseña, Detalles, Reviews con contenido Lorem Ipsum).
+*   **Ruta Tienda:** Añadida la ruta `GET /tienda` en `public/index.php` asociada a `ControladorTienda@index`.
+*   **Sección Tienda en Inicio:** Añadida la sección `#tienda` en `app/Views/paginas/inicio.php`:
+    *   Título "Explora Mis Libros".
+    *   Cuadrícula responsiva (`row-cols-*`) de tarjetas Bootstrap (`card`).
+    *   Cada tarjeta muestra imagen (placeholder), título, descripción corta (datos de ejemplo) y botón "Ver Detalles" (`.btn-marilu1-gradiente`) que enlaza a `tienda.php?id=X`.
+    *   Animaciones `data-aos` aplicadas a las tarjetas.
+
+---
+
+## Actualización: 2025-05-04 09:03
+
+**Correcciones y Ajustes:**
+
+*   **Enlace CSS Corregido:** Modificado `app/Views/templates/header.php` para eliminar `/public/` duplicado en el `href` de `estilos.css`. La ruta correcta es `<?= BASE_URL ?>/assets/css/estilos.css`.
+*   **Layout Móvil 'Sobre Mí':** Ajustadas las clases `order-*` en `app/Views/paginas/inicio.php` para la sección `#sobre-mi`. Ahora la imagen (`order-1 order-lg-2`) aparece arriba del texto (`order-2 order-lg-1`) en vistas móviles (xs a md), y el texto aparece primero en pantallas grandes (lg+).
