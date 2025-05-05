@@ -129,3 +129,45 @@ section {
 .ver-mas-btn[aria-expanded="true"]::after {
     content: '▲';
 }
+
+/* Estilos para tarjetas de noticias */
+.card-img-container {
+    position: relative;
+    background-color: #f8f9fa;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Para compatibilidad con navegadores antiguos */
+.line-clamp {
+    max-height: 4.5em;
+    line-height: 1.5em;
+}
+
+/* Paginación */
+.pagination {
+    margin-top: 2rem;
+}
+
+.page-item.active .page-link {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.page-link {
+    color: #6c757d;
+}
+
+.page-link:hover {
+    color: #495057;
+}
