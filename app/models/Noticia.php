@@ -104,6 +104,51 @@ class Noticia
         }
     }
 
+    /**
+     * Obtiene noticias paginadas
+     */
+    public function getPaginadas(int $pagina = 1, int $porPagina = 5): array
+    {
+        $offset = ($pagina - 1) * $porPagina;
+        
+        $stmt = $this->db->prepare("
+            SELECT SQL_CALC_FOUND_ROWS 
+                id, titulo, resumen, imagen_preview as imagen,
+                fecha_publicacion, plataforma, url_origen
+            FROM noticias 
+            WHERE activo = 1
+            ORDER BY es_destacada DESC, fecha_publicacion DESC
+            LIMIT :limit OFFSET :offset
+        ");
+        
+        $stmt->bindValue(':limit', $porPagina, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return [
+            'noticias' => $stmt->fetchAll(PDO::FETCH_ASSOC),
+            'total' => $this->db->query("SELECT FOUND_ROWS()")->fetchColumn()
+        ];
+    }
+
+    /**
+     * Obtiene noticias para portada (2 destacadas)
+     */
+    public function getParaPortada(): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT id, titulo, resumen, imagen_preview as imagen, 
+                   fecha_publicacion, plataforma, url_origen
+            FROM noticias 
+            WHERE activo = 1
+            ORDER BY es_destacada DESC, fecha_publicacion DESC
+            LIMIT 2
+        ");
+        
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // --- Métodos Futuros (Opcional) ---
     // Crear Noticia (para un futuro panel de administración)
     // Actualizar Noticia
