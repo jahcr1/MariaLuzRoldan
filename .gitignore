@@ -3,6 +3,7 @@
 
 # Ignorar archivos de configuración de entorno
 .env
+.env.example
  
 # Ignorar archivos de caché
 *.cache
