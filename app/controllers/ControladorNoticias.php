@@ -10,13 +10,17 @@ class ControladorNoticias extends Controller
 {
     public function index()
     {
+        $paginaActual = (int)($_GET['pagina'] ?? 1);
+        $porPagina = 5;
+        
         $modelo = new Noticia();
-        $noticias = $modelo->getDestacadas();
+        $resultado = $modelo->getPaginadas($paginaActual, $porPagina);
         
         $this->render('paginas/noticias', [
-            'noticias' => $noticias,
-            'pageTitle' => 'Noticias Destacadas',
-            'metaDescription' => 'Últimas noticias y publicaciones'
+            'noticias' => $resultado['noticias'],
+            'paginaActual' => $paginaActual,
+            'totalPaginas' => ceil($resultado['total'] / $porPagina),
+            'pageTitle' => 'Noticias'
         ]);
     }
 }

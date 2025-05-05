@@ -6,6 +6,7 @@ namespace App\Controllers;
 // Controlador principal para la página de inicio. Define la acción 'index' que carga la vista principal.
 
 use App\Core\Controller;
+use App\Models\Noticia; // Agregar el uso del modelo Noticia
 
 class ControladorInicio extends Controller {
 
@@ -17,10 +18,14 @@ class ControladorInicio extends Controller {
         $pageTitle = "Inicio - Mi Sitio Web";
         $pageDescription = "Bienvenido a mi sitio web personal.";
 
+        $noticiaModel = new Noticia();
+        $noticiasDestacadas = $noticiaModel->getParaPortada();
+        
         // Cargar la vista
         $this->render('paginas/inicio', [
             'pageTitle' => $pageTitle,
-            'pageDescription' => $pageDescription
+            'pageDescription' => $pageDescription,
+            'noticiasDestacadas' => $noticiasDestacadas,
             // Pasar más datos a la vista si es necesario
         ]);
     }
