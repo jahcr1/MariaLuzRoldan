@@ -9,12 +9,6 @@ use App\Core\Controller;
 
 class ControladorInicio extends Controller {
 
-    protected array $params;
-
-    public function __construct(array $params = []) {
-        $this->params = $params;
-    }
-
     /**
      * Muestra la página de inicio.
      */

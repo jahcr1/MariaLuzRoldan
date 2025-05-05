@@ -1,4 +1,5 @@
-<?php // Controlador para la página de detalle de la tienda. Gestiona la obtención y muestra de datos de un libro específico. ?>
+<?php
+declare(strict_types=1);
 
 namespace App\Controllers;
 
@@ -9,13 +10,11 @@ class ControladorTienda extends Controller
     public function index()
     {
         // Recoger el ID del libro de la URL
-        $bookId = $_GET['id'] ?? null;
+        $bookId = $this->getParam('id') ?? $_GET['id'] ?? null;
 
         if (!$bookId) {
             // Redirigir o mostrar error si no hay ID
-            // header('Location: ' . BASE_URL); // Ejemplo: redirigir a inicio
-            echo "Error: ID de libro no especificado.";
-            exit;
+            $this->redirect('/');
         }
 
         // --- Lógica para obtener datos del libro desde el Modelo (FUTURO) ---
@@ -44,6 +43,7 @@ class ControladorTienda extends Controller
         ];
 
         // Cargar la vista de la tienda, pasando los datos
-        $this->view('paginas/tienda', $data);
+        $this->render('paginas/tienda', $data);
     }
 }
+?>
