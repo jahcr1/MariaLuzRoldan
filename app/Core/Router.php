@@ -26,12 +26,18 @@ class Router {
     }
 
     public function dispatch(string $url): void {
-        $url = $this->removeQueryStringVariables($url);
+        $parsedUrl = parse_url($url);
+        $urlPath = $parsedUrl['path'] ?? '/';
+        
+        // Preservar el query string original
+        if (isset($parsedUrl['query'])) {
+            parse_str($parsedUrl['query'], $_GET);
+        }
 
-        if ($this->match($url)) {
+        if ($this->match($urlPath)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            $controller = "App\Controllers\\" . $controller;
+            $controller = "App\\Controllers\\" . $controller;
 
             if (class_exists($controller)) {
                 $controller_object = new $controller($this->params);
@@ -42,15 +48,12 @@ class Router {
                 if (is_callable([$controller_object, $action])) {
                     $controller_object->$action();
                 } else {
-                    // Acción no encontrada
                     $this->notFound();
                 }
             } else {
-                // Controlador no encontrado
                 $this->notFound();
             }
         } else {
-            // Ruta no encontrada
             $this->notFound();
         }
     }

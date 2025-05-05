@@ -1,5 +1,12 @@
 <?php
+// Configuración de logs
 declare(strict_types=1);
+
+if (!file_exists(__DIR__ . '/../logs')) {
+    mkdir(__DIR__ . '/../logs', 0755, true);
+}
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/error.log');
 
 require_once __DIR__ . '/../vendor/autoload.php'; // Asegúrate de que el autoload de Composer esté incluido
 
@@ -31,7 +38,7 @@ $scriptName = $_SERVER['SCRIPT_NAME'] ?? ''; // e.g., /ProyectosWeb/MLR/public/i
 $basePath = preg_replace('/\/index\.php$/', '', $scriptName);
 // Elimina barras inclinadas al final si las hay, excepto si es solo '/'
 $baseUrl = ($basePath === '' || $basePath === '/') ? '/' : rtrim($basePath, '/');
-define('BASE_URL', $baseUrl); // e.g., /ProyectosWeb/MLR/public o /
+define('BASE_URL', '/ProyectosWeb/MLR/public'); // e.g., /ProyectosWeb/MLR/public o /
 
 // Configuración de zona horaria (recomendado)
 date_default_timezone_set($_ENV['APP_TIMEZONE'] ?? 'America/Argentina/Buenos_Aires'); // Puedes añadir APP_TIMEZONE a tu .env

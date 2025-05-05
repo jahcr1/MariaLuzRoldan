@@ -28,23 +28,20 @@ class Presentacion
     public function obtenerProximas(int $limite = 3): array
     {
         try {
-            // Obtener la fecha y hora actual en formato SQL
             $ahora = date('Y-m-d H:i:s');
-
-            $sql = "SELECT id, lugar, fecha_evento, descripcion, enlace 
-                    FROM presentaciones 
-                    WHERE activo = true AND fecha_evento >= :ahora
-                    ORDER BY fecha_evento ASC 
-                    LIMIT :limite";
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->db->prepare("
+                SELECT id, lugar, fecha_evento, descripcion, enlace 
+                FROM presentaciones 
+                WHERE activo = true AND fecha_evento >= :ahora
+                ORDER BY fecha_evento ASC 
+                LIMIT :limite");
             $stmt->bindParam(':ahora', $ahora, PDO::PARAM_STR);
             $stmt->bindParam(':limite', $limite, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            // En una aplicación real, aquí registraríamos el error.
-            error_log("Error al obtener próximas presentaciones: " . $e->getMessage());
-            return []; // Devolver array vacío en caso de error
+            return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+        } catch (PDOException $e) {
+            error_log("Error en Presentacion::obtenerProximas: " . $e->getMessage());
+            return [];
         }
     }
 

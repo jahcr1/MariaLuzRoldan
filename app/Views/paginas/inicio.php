@@ -161,7 +161,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= htmlspecialchars($libro['titulo']) ?></h5>
                         <p class="card-text flex-grow-1"><?= htmlspecialchars($libro['descripcion_corta']) ?></p>
-                        <a href="<?= BASE_URL ?>/tienda?id=<?= htmlspecialchars($libro['id']) ?>" class="btn btn-marilu1-gradiente mt-auto align-self-start">Ver Detalles</a>
+                        <a href="<?= BASE_URL ?>/tienda?id=<?= $libro['id'] ?>" class="btn btn-marilu1-gradiente mt-auto align-self-start">Ver Detalles</a>
                     </div>
                 </div>
             </div>

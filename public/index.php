@@ -27,15 +27,17 @@ try {
 
 // Cargar configuración
 require_once CONFIG_PATH . '/config.php';
-require_once CONFIG_PATH . '/database.php';
+
+// Cargar configuración de la base de datos
+require_once __DIR__ . '/../app/Core/Database.php';
+App\Core\Database::loadConfig(__DIR__ . '/../config/database.php');
 
 // Instanciar y usar el nuevo Router para manejar las solicitudes
-$router = new Router();
+$router = new App\Core\Router();
 
 // Definir las rutas de la aplicación
 $router->add('/', ['controller' => 'ControladorInicio', 'action' => 'index']);
 $router->add('/tienda', ['controller' => 'ControladorTienda', 'action' => 'index']);
-$router->add('/tienda', ['controller' => 'ShopController', 'action' => 'index']);
 $router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' => 'showBook']); // Ruta con parámetro
 $router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);
 $router->add('/admin/productos', ['controller' => 'Admin\ProductController', 'action' => 'index']); // Ruta admin

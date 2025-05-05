@@ -33,16 +33,14 @@ class Database
      * Carga la configuración de la base de datos.
      * Debe llamarse una vez antes de obtener la conexión, típicamente en el punto de entrada.
      *
-     * @param array $config Array asociativo con la configuración de la DB (del archivo database.php).
+     * @param string $configPath Ruta al archivo de configuración de la DB.
      */
-    public static function loadConfig(array $config): void
+    public static function loadConfig(string $configPath): void
     {
-        if (!empty(self::$config)) {
-            // Opcional: Podrías lanzar un error o advertencia si intentan cargar la config de nuevo
-            // trigger_error("La configuración de la base de datos ya ha sido cargada.", E_USER_WARNING);
-            return; // Evitar recargar si ya está cargada
+        if (!file_exists($configPath)) {
+            throw new RuntimeException("Archivo de configuración de DB no encontrado: $configPath");
         }
-        self::$config = $config;
+        self::$config = require $configPath;
     }
 
     /**
@@ -54,12 +52,11 @@ class Database
      */
     public static function getInstance(): PDO
     {
-        if (self::$instance === null) {
-            if (empty(self::$config)) {
-                // Es crucial que la configuración se cargue ANTES de intentar obtener la instancia.
-                throw new \Exception("La configuración de la base de datos no ha sido cargada. Llama a Database::loadConfig() primero en tu punto de entrada (index.php).");
-            }
+        if (self::$config === null) {
+            throw new Exception("Configuración no cargada. Llama a loadConfig() primero");
+        }
 
+        if (self::$instance === null) {
             $dsn = sprintf(
                 '%s:host=%s;port=%s;dbname=%s;charset=%s',
                 self::$config['driver'] ?? 'mysql', // Valor por defecto por si acaso
