@@ -77,7 +77,5 @@ require_once __DIR__ . '/../templates/header.php';
     </div>
 </div>
 
-<?php
-// Incluir footer usando rutas relativas
-require_once __DIR__ . '/../templates/footer.php';
-?>
+</body>
+</html>

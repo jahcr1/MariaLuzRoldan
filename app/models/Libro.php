@@ -5,15 +5,14 @@ namespace App\Models;
 
 use App\Core\Database;
 use PDO;
-use PDOException;
 
 class Libro
 {
-    private PDO $db;
+    protected PDO $db;
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance();
     }
 
     /**
@@ -23,10 +22,20 @@ class Libro
     {
         try {
             $stmt = $this->db->prepare("
-                SELECT * FROM libros 
+                SELECT 
+                    id,
+                    titulo,
+                    autor,
+                    descripcion,
+                    descripcion_corta,
+                    imagen,
+                    activo,
+                    created_at
+                FROM libros 
                 WHERE id = :id AND activo = 1
             ");
-            $stmt->execute(['id' => $id]);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
             error_log("Error en Libro::findById: " . $e->getMessage());
@@ -41,10 +50,15 @@ class Libro
     {
         try {
             $stmt = $this->db->prepare("
-                SELECT id, titulo, imagen 
-                FROM libros 
-                WHERE activo = 1 
-                ORDER BY fecha_publicacion DESC 
+                SELECT 
+                    id,
+                    title AS titulo,
+                    author AS autor,
+                    cover_image_main AS imagen,
+                    short_description AS descripcion_corta
+                FROM libros
+                WHERE is_active = 1
+                ORDER BY created_at DESC
                 LIMIT :limit
             ");
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);

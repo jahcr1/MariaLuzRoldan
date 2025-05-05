@@ -26,8 +26,15 @@ class ControladorTienda extends Controller
         $libro = $libroModel->findById($bookId);
 
         if (!$libro) {
-            $this->redirect('/');
-            return;
+            // Datos de prueba temporalmente
+            $libro = [
+                'id' => $bookId,
+                'titulo' => 'Libro de Prueba',
+                'imagen' => APP_URL.'/assets/images/libros/default.jpg',
+                'autor' => 'Autor de Prueba',
+                'resena' => 'Reseña de ejemplo...',
+                'detalles' => '<li>Páginas: 300</li>'
+            ];
         }
 
         // Formatear datos para la vista
