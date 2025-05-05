@@ -137,7 +137,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
      =========================== -->
      <section id="tienda" class="py-5">
     <div class="container">
-        <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Explora Mis Libros</h2>
+        <h2 class="text-center display-5 fw-bold mb-5">Explora Mis Libros</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
             
             <?php 
@@ -271,7 +271,58 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
     </div>
 </section>
 
-
+<!-- ==========================
+     SECCIÓN NOTICIAS DESTACADAS
+     =========================== -->
+<section class="noticias-destacadas py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 mb-0">
+                <a href="<?= APP_URL ?>/noticias" class="text-decoration-none">
+                    Noticias Recientes
+                </a>
+            </h2>
+            <a href="<?= APP_URL ?>/noticias" class="btn btn-sm btn-outline-primary">Ver todas</a>
+        </div>
+        
+        <div class="row g-4">
+            <?php foreach ($noticiasDestacadas as $noticia): ?>
+            <div class="col-lg-6">
+                <div class="noticia-card card border-0 shadow-sm h-100">
+                    <?php if (!empty($noticia['imagen'])): ?>
+                    <img src="<?= htmlspecialchars($noticia['imagen']) ?>" 
+                         class="card-img-top" 
+                         alt="<?= htmlspecialchars($noticia['titulo']) ?>">
+                    <?php endif; ?>
+                    
+                    <div class="card-body">
+                        <h3 class="h5 card-title"><?= htmlspecialchars($noticia['titulo']) ?></h3>
+                        <p class="card-text text-muted small">
+                            <?= date('d/m/Y', strtotime($noticia['fecha_publicacion'])) ?> | 
+                            <?= ucfirst($noticia['plataforma']) ?>
+                        </p>
+                        
+                        <div class="noticia-resumen" data-collapsed="true">
+                            <p class="card-text"><?= htmlspecialchars($noticia['resumen']) ?></p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-top-0">
+                        <button class="btn btn-sm btn-outline-secondary ver-mas-btn">
+                            Ver más
+                        </button>
+                        <a href="<?= htmlspecialchars($noticia['url_origen']) ?>" 
+                           target="_blank" 
+                           class="btn btn-sm btn-outline-primary float-end">
+                            Ver en <?= ucfirst($noticia['plataforma']) ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
 
 <main class="container mt-4">
     <div class="jumbotron bg-light p-5 rounded-lg m-3" data-aos="fade-up">

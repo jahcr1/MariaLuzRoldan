@@ -40,6 +40,7 @@ $router->add('/', ['controller' => 'ControladorInicio', 'action' => 'index']);
 $router->add('/tienda', ['controller' => 'ControladorTienda', 'action' => 'index']);
 $router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' => 'showBook']); // Ruta con parámetro
 $router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);
+$router->add('/noticias', ['controller' => 'ControladorNoticias', 'action' => 'index']);
 $router->add('/admin/productos', ['controller' => 'Admin\ProductController', 'action' => 'index']); // Ruta admin
 
 // Obtener la URL solicitada (quitando el nombre del directorio base si es necesario)
