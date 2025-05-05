@@ -5,17 +5,18 @@ namespace App\Models;
 
 use App\Core\Database;
 use PDO;
+use PDOException;
 
 /**
  * Modelo para interactuar con la tabla 'noticias'.
  */
 class Noticia
 {
-    private PDO $db;
+    protected PDO $db;
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance();
     }
 
     /**
@@ -60,6 +61,46 @@ class Noticia
         } catch (\PDOException $e) {
             error_log("Error al obtener noticia por slug: " . $e->getMessage());
             return false;
+        }
+    }
+
+    /**
+     * Obtiene noticias destacadas para portada
+     */
+    public function getDestacadas(int $limit = 2): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT 
+                id, 
+                titulo, 
+                url_origen,
+                plataforma,
+                COALESCE(imagen_preview, 'default-news.jpg') AS imagen,
+                resumen,
+                fecha_publicacion
+            FROM noticias 
+            WHERE activo = 1 AND es_destacada = 1
+            ORDER BY fecha_publicacion DESC
+            LIMIT :limit
+        ");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Genera código embed según la plataforma
+     */
+    public function generarEmbed(string $url, string $plataforma): string
+    {
+        switch($plataforma) {
+            case 'youtube':
+                return "<div class='video-container'><iframe src='{$url}' frameborder='0' allowfullscreen></iframe></div>";
+            case 'facebook':
+            case 'instagram':
+                return "<div class='social-embed' data-platform='{$plataforma}' data-url='{$url}'></div>";
+            default:
+                return "<a href='{$url}' class='btn btn-outline-primary' target='_blank'>Ver en {$plataforma}</a>";
         }
     }
 
