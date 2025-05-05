@@ -180,7 +180,11 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
         <div class="row">
             <!-- Columna Noticias (Contenido Dinámico PHP) -->
             <div class="col-lg-7 mb-4 mb-lg-0" data-aos="fade-up">
-                <h3 class="mb-4">Noticias Recientes</h3>
+                <h3 class="mb-4">
+                    <a href="<?= APP_URL ?>/noticias" class="text-decoration-none">
+                        Noticias Recientes
+                    </a>
+                </h3>
                 <article class="mb-4 border-bottom pb-3">
                     <h4><a href="#">Título Noticia 1 (Cargado desde DB)</a></h4>
                     <p class="text-muted">Fecha Noticia 1</p>
@@ -199,7 +203,9 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
 
             <!-- Columna Presentaciones -->
             <div class="col-lg-5" data-aos="fade-left" data-aos-delay="100">
-                <h3 class="mb-4">Próximas Presentaciones</h3>
+            <a href="<?= APP_URL ?>/noticias" class="mb-4 text-decoration-none">
+                    Próximas Presentaciones
+                </a>
                 <div class="list-group">
                     <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
                         <div class="d-flex w-100 justify-content-between">
@@ -271,58 +277,7 @@ $pageDescription = $pageDescription ?? 'Página de inicio';
     </div>
 </section>
 
-<!-- ==========================
-     SECCIÓN NOTICIAS DESTACADAS
-     =========================== -->
-<section class="noticias-destacadas py-5 bg-light">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3 mb-0">
-                <a href="<?= APP_URL ?>/noticias" class="text-decoration-none">
-                    Noticias Recientes
-                </a>
-            </h2>
-            <a href="<?= APP_URL ?>/noticias" class="btn btn-sm btn-outline-primary">Ver todas</a>
-        </div>
-        
-        <div class="row g-4">
-            <?php foreach ($noticiasDestacadas as $noticia): ?>
-            <div class="col-lg-6">
-                <div class="noticia-card card border-0 shadow-sm h-100">
-                    <?php if (!empty($noticia['imagen'])): ?>
-                    <img src="<?= htmlspecialchars($noticia['imagen']) ?>" 
-                         class="card-img-top" 
-                         alt="<?= htmlspecialchars($noticia['titulo']) ?>">
-                    <?php endif; ?>
-                    
-                    <div class="card-body">
-                        <h3 class="h5 card-title"><?= htmlspecialchars($noticia['titulo']) ?></h3>
-                        <p class="card-text text-muted small">
-                            <?= date('d/m/Y', strtotime($noticia['fecha_publicacion'])) ?> | 
-                            <?= ucfirst($noticia['plataforma']) ?>
-                        </p>
-                        
-                        <div class="noticia-resumen" data-collapsed="true">
-                            <p class="card-text"><?= htmlspecialchars($noticia['resumen']) ?></p>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer bg-transparent border-top-0">
-                        <button class="btn btn-sm btn-outline-secondary ver-mas-btn">
-                            Ver más
-                        </button>
-                        <a href="<?= htmlspecialchars($noticia['url_origen']) ?>" 
-                           target="_blank" 
-                           class="btn btn-sm btn-outline-primary float-end">
-                            Ver en <?= ucfirst($noticia['plataforma']) ?>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+
 
 <main class="container mt-4">
     <div class="jumbotron bg-light p-5 rounded-lg m-3" data-aos="fade-up">
