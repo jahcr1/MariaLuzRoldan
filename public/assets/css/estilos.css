@@ -142,13 +142,19 @@ section {
 
 .line-clamp-3 {
     display: -webkit-box;
+    display: -moz-box;
+    display: box;
     -webkit-line-clamp: 3;
+    -moz-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Para compatibilidad con navegadores antiguos */
+/* Corrección para line-clamp */
 .line-clamp {
     max-height: 4.5em;
     line-height: 1.5em;
@@ -170,4 +176,248 @@ section {
 
 .page-link:hover {
     color: #495057;
+}
+
+/* Dispositivos móviles (hasta 767px) */
+@media (max-width: 767px) {
+    .card-img-container {
+        height: 150px !important;
+    }
+    
+    .noticia-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablets (768px a 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .card-img-container {
+        height: 180px !important;
+    }
+    
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Escritorio (992px en adelante) */
+@media (min-width: 992px) {
+    .card-img-container {
+        height: 220px !important;
+    }
+    
+    .noticia-card {
+        transition: transform 0.3s;
+    }
+    
+    .noticia-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Estilos base mejorados */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Títulos principales */
+.page-title {
+    font-size: 2.8rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #6c757d 30%, transparent);
+}
+
+/* Navegación */
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Eliminar estilos que puedan interferir con Bootstrap */
+.navbar-collapse {
+    /* Resetear transiciones que puedan afectar el toggle */
+    transition: none !important;
+}
+
+/* Asegurar que el navbar sticky no interfiera */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+/* Corrección menú hamburguesa */
+.navbar-collapse {
+    transition: height 0.35s ease;
+}
+
+/* Alineación del carrito en móvil */
+@media (max-width: 991px) {
+    .navbar-nav .nav-link.position-relative {
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .navbar-nav .badge {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 5px;
+    }
+}
+
+/* Contador del carrito (versión anterior) */
+.navbar-nav .badge {
+    font-size: 0.6rem;
+    padding: 0.25em 0.4em;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin-left: 5px;
+}
+
+/* Diseño tablet mejorado */
+@media (min-width: 600px) and (max-width: 991px) {
+    .navbar-nav {
+        flex-wrap: wrap;
+        flex-direction: row !important;
+        gap: 5px 15px;
+    }
+    
+    .navbar-nav .nav-item {
+        display: inline-block;
+        width: auto;
+        flex-grow: 0;
+    }
+}
+
+/* Eliminar reglas anteriores para tablets */
+@media (min-width: 600px) and (max-width: 991px) {
+    .navbar-nav {
+        flex-direction: column !important;
+    }
+}
+
+/* Navbar sticky mejorado */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Diseño para tablets pequeñas (600px-800px) */
+@media (min-width: 600px) and (max-width: 991px) {
+    .navbar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 10px;
+    }
+    
+    .navbar-nav .nav-item {
+        flex-grow: 1;
+        text-align: center;
+    }
+}
+
+/* Escritorio (992px en adelante) */
+@media (min-width: 992px) {
+    .navbar {
+        padding: 1.5rem 0;
+    }
+}
+
+/* Estilos para el carrito */
+.navbar .fa-shopping-cart {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+    }
+    
+    .navbar-nav .fa-shopping-cart {
+        margin-right: 0.5rem;
+    }
+}
+
+/* Media queries para navegación */
+@media (max-width: 767px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .navbar-collapse {
+        padding-top: 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        padding: 1.5rem 0;
+    }
 }

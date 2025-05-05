@@ -9,21 +9,27 @@
 <?php require_once __DIR__ . '/../templates/header.php'; ?>
 
 <main class="container py-5">
-    <h1 class="mb-4 text-center">Noticias</h1>
+    <h1 class="page-title text-center">Noticias</h1>
     
-    <div class="row g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
         <?php foreach ($noticias as $noticia): ?>
-        <div class="col-md-6">
-            <article class="card h-100 shadow-sm">
+        <div class="col">
+            <article class="noticia-card card h-100 shadow-sm">
                 <?php if (!empty($noticia['imagen'])): ?>
-                <div class="card-img-container" style="height: 200px; overflow: hidden;">
+                <div class="card-img-container position-relative" style="height: 200px; overflow: hidden;">
                     <img src="<?= htmlspecialchars($noticia['imagen']) ?>" 
                          class="card-img-top h-100 w-100 object-fit-cover" 
                          alt="<?= htmlspecialchars($noticia['titulo']) ?>">
+                    <div class="plataforma-badge">
+                        <span class="badge bg-dark"><?= ucfirst($noticia['plataforma']) ?></span>
+                    </div>
                 </div>
                 <?php else: ?>
                 <div class="card-img-container bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                     <i class="fas fa-newspaper fa-3x text-muted"></i>
+                    <div class="plataforma-badge">
+                        <span class="badge bg-dark"><?= ucfirst($noticia['plataforma']) ?></span>
+                    </div>
                 </div>
                 <?php endif; ?>
                 
@@ -32,9 +38,6 @@
                     <p class="card-text text-muted mb-2">
                         <small><?= date('d/m/Y', strtotime($noticia['fecha_publicacion'])) ?></small>
                     </p>
-                    <div class="mb-3">
-                        <span class="badge bg-secondary"><?= ucfirst($noticia['plataforma']) ?></span>
-                    </div>
                     <p class="card-text line-clamp-3"><?= htmlspecialchars($noticia['resumen'] ?? '') ?></p>
                 </div>
                 
@@ -74,5 +77,3 @@
     </nav>
     <?php endif; ?>
 </main>
-
-<?php require_once __DIR__ . '/../templates/footer.php'; ?>

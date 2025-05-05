@@ -15,8 +15,12 @@
     </div>
 </footer>
 
-<!-- Bootstrap JS Bundle (Incluye Popper) (CDN) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- Bootstrap JS Bundle (5.3.0) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Scripts personalizados -->
+<script src="<?= APP_URL ?>/assets/js/navbar.js"></script>
+<script src="<?= APP_URL ?>/assets/js/carrito.js"></script>
 
 <!-- AOS JS (CDN) -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -33,10 +37,6 @@
 <script async defer src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v12.0"></script>
 <script async defer src="//www.instagram.com/embed.js"></script>
 <script src="<?= APP_URL ?>/assets/js/embeds.js"></script>
-
-<!-- Scripts personalizados (si los creamos más adelante) -->
-<!-- <script src="<?= BASE_URL ?>/assets/js/main.js"></script> -->
-<!-- <script src="<?= BASE_URL ?>/assets/js/navbar.js"></script> -->
 
 </body>
 </html>
