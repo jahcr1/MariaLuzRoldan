@@ -3,72 +3,66 @@
 // Asegurarse de que las variables están definidas para evitar errores
 $pageTitle = $pageTitle ?? 'Bienvenido';
 $pageDescription = $pageDescription ?? 'Página de inicio';
+
+// Obtener slides (2 métodos compatibles)
+if (isset($this->data['slides'])) {
+    // Método tradicional (desde controlador)
+    $slides = $this->data['slides'];
+} else {
+    // Método alternativo via API interna
+    $slidesJson = @file_get_contents('http://localhost/ProyectosWeb/MLR/public/index.php?url=slides/obtener');
+    $slidesData = $slidesJson ? json_decode($slidesJson, true) : null;
+    $slides = ($slidesData && $slidesData['success']) ? $slidesData['data'] : [];
+    
+    // Fallback a slides por defecto si todo falla
+    if (empty($slides)) {
+        require_once __DIR__ . '/../../Core/Controller.php';
+        require_once __DIR__ . '/../../Controllers/ControladorSlide.php';
+        $controlador = new \App\Controllers\ControladorSlide();
+        $slides = $controlador->getSlidesPorDefecto();
+    }
+}
 ?>
 
 <!-- ==========================
      SECCIÓN SLIDER PROPAGANDA
      =========================== -->
 <section id="slider-propaganda">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <?php if(!empty($slides)): ?>
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            <?php foreach($slides as $index => $slide): ?>
+            <button type="button" data-bs-target="#mainCarousel" 
+                    data-bs-slide-to="<?= $index ?>" 
+                    class="<?= $index === 0 ? 'active' : '' ?>" 
+                    aria-label="Slide <?= $index + 1 ?>">
+            </button>
+            <?php endforeach; ?>
         </div>
+        
         <div class="carousel-inner">
-            <!-- Slide 1 (Activo) -->
-            <div class="carousel-item active">
-                <!-- Reemplaza '...' con la ruta a tu imagen. Tamaño recomendado: ~1920x800 -->
-                <img src="<?= APP_URL ?>/assets/images/layout/slider1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                    <h5>Título Slide 1</h5>
-                    <p>Descripción breve o llamada a la acción para el slide 1.</p>
+            <?php foreach($slides as $index => $slide): ?>
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                <img src="<?= APP_URL.$slide['imagen'] ?>" class="d-block w-100 img-fluid" 
+                     alt="<?= htmlspecialchars($slide['titulo']) ?>">
+                <div class="carousel-caption">
+                    <h3 class="display-4"><?= htmlspecialchars($slide['titulo']) ?></h3>
+                    <p class="lead"><?= htmlspecialchars($slide['descripcion']) ?></p>
                 </div>
             </div>
-            <!-- Slide 2 -->
-            <div class="carousel-item">
-                <img src="<?= APP_URL ?>/assets/images/layout/slider2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                    <h5>Título Slide 2</h5>
-                    <p>Descripción breve o llamada a la acción para el slide 2.</p>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="carousel-item">
-                <img src="<?= APP_URL ?>/assets/images/layout/slider3.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                    <h5>Título Slide 3</h5>
-                    <p>Descripción breve o llamada a la acción para el slide 3.</p>
-                </div>
-            </div>
-             <!-- Slide 4 -->
-            <div class="carousel-item">
-                <img src="<?= APP_URL ?>/assets/images/layout/slider4.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                    <h5>Título Slide 4</h5>
-                    <p>Descripción breve o llamada a la acción para el slide 4.</p>
-                </div>
-            </div>
-             <!-- Slide 5 -->
-            <div class="carousel-item">
-                <img src="<?= APP_URL ?>/assets/images/layout/slider1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-                    <h5>Título Slide 5</h5>
-                    <p>Descripción breve o llamada a la acción para el slide 5.</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <?php endif; ?>
 </section>
 
 <!-- ==========================

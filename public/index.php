@@ -1,6 +1,19 @@
 <?php
 declare(strict_types=1);
 
+// Configuración de errores
+ini_set('display_errors', '1');
+ini_set('error_log', 'c:\xampp\htdocs\ProyectosWeb\MLR\logs\debug.log');
+error_reporting(E_ALL);
+
+// Verificar y crear archivo de log si no existe
+$logFile = 'c:\xampp\htdocs\ProyectosWeb\MLR\logs\debug.log';
+if (!file_exists($logFile)) {
+    file_put_contents($logFile, "Archivo de log creado: " . date('Y-m-d H:i:s') . "\n");
+}
+error_log("Prueba de log - Acceso a index.php");
+
+
 use Dotenv\Dotenv;
 use App\Core\Router;
 
@@ -42,6 +55,8 @@ $router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' =
 $router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);
 $router->add('/noticias', ['controller' => 'ControladorNoticias', 'action' => 'index']);
 $router->add('/admin/productos', ['controller' => 'Admin\ProductController', 'action' => 'index']); // Ruta admin
+$router->add('/slides/obtener', ['controller' => 'ControladorSlide', 'action' => 'obtenerSlides'
+]);
 
 // Obtener la URL solicitada (quitando el nombre del directorio base si es necesario)
 $url = $_SERVER['REQUEST_URI'];

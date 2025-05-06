@@ -28,6 +28,9 @@ class Router {
     public function dispatch(string $url): void {
         $parsedUrl = parse_url($url);
         $urlPath = $parsedUrl['path'] ?? '/';
+
+        // Debug: Loggear la URL recibida
+        error_log("Router recibió URL: " . $urlPath);
         
         // Preservar el query string original
         if (isset($parsedUrl['query'])) {
@@ -39,6 +42,9 @@ class Router {
             $controller = $this->convertToStudlyCaps($controller);
             $controller = "App\\Controllers\\" . $controller;
 
+            // Debug: Loggear controlador y acción
+            error_log("Intentando cargar: " . $controller . "::" . $this->params['action']);
+
             if (class_exists($controller)) {
                 $controller_object = new $controller($this->params);
 
@@ -48,19 +54,29 @@ class Router {
                 if (is_callable([$controller_object, $action])) {
                     $controller_object->$action();
                 } else {
+                    error_log("Método no callable: " . $action);
                     $this->notFound();
                 }
             } else {
+                error_log("Clase no encontrada: " . $controller);
                 $this->notFound();
             }
         } else {
-            $this->notFound();
+            error_log("No hubo match para: " . $urlPath);
+            error_log("Rutas registradas: " . print_r(array_keys($this->routes), true));
+                $this->notFound();
         }
     }
 
     protected function match(string $url): bool {
+        // Normalizar URL (eliminar query string)
+        $cleanUrl = $this->removeQueryStringVariables($url);
+
         foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches)) {
+            if (preg_match($route, $cleanUrl, $matches)) {
+                // Debug: Loggear coincidencia
+                error_log("Ruta coincidente: " . $route);
+                
                 // Obtener los nombres de los parámetros capturados
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
@@ -76,24 +92,16 @@ class Router {
     }
 
     protected function removeQueryStringVariables(string $url): string {
-        if ($url != '') {
-            $parts = explode('&', $url, 2);
-            if (strpos($parts[0], '=') === false) {
-                $url = $parts[0];
-            } else {
-                $url = '';
-            }
-        }
-        // Quita también el query string si existe (ej: /pagina?id=1)
-        if (($pos = strpos($url, '?')) !== false) {
-             $url = substr($url, 0, $pos);
-        }
-        // Asegurarse de quitar la barra final si no es la ruta raíz
-        if ($url != '/' && substr($url, -1) == '/') {
+        
+        // 1. Extrae el path antes de cualquier ? o &
+        $url = strtok($url, '?'); // <-- Esto maneja tanto ?url= como ?otros_parametros
+        
+        // 2. Mantiene la normalización existente para barras finales
+        if ($url !== '/' && substr($url, -1) === '/') {
             $url = rtrim($url, '/');
         }
-
-        return $url ?: '/'; // Devuelve '/' si la URL resultante está vacía
+        
+        return $url ?: '/'; // Devuelve '/' si está vacío (compatibilidad con rutas existentes)
     }
 
     protected function convertToStudlyCaps(string $string): string {

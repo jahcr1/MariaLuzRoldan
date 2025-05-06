@@ -8,7 +8,7 @@
     # Redirigir todo el tráfico a index.php si no es un archivo o directorio existente
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [L,QSA] # QSA preserva los query strings
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>
 
 # Opcional: Prevenir listado de directorios

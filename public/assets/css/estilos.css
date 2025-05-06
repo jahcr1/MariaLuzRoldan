@@ -267,6 +267,12 @@ section {
 }
 
 /* Navegación */
+.navbar {
+    background: linear-gradient(90deg, #f5d6b1, #addaf0);
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -430,5 +436,103 @@ section {
 @media (min-width: 992px) {
     .navbar {
         padding: 1.5rem 0;
+    }
+}
+
+/* Estilos para el footer */
+footer {
+    background: linear-gradient(90deg, #f5d6b1, #addaf0);
+    padding: 2rem;
+    color: #343a40;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #343a40;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* ========================
+   SECCIÓN SLIDER (inicio.php)
+   ======================== */
+#slider-propaganda {
+    padding: 0;
+}
+
+.carousel-inner {
+    border-radius: 0;
+}
+
+.carousel-item {
+    height: 80vh;
+    min-height: 500px;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption {
+    left: 5%;
+    right: 5%;
+    bottom: 15%;
+    max-width: 90%;
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+}
+
+/* ========================
+   MEDIA QUERIES
+   ======================== */
+/* Desktop grande (≥1200px) */
+@media (min-width: 1200px) {
+    .carousel-caption {
+        left: 10%;
+        right: 10%;
+        max-width: 80%;
+    }
+}
+
+/* Tablet (≥768px) */
+@media (max-width: 991.98px) {
+    .carousel-caption {
+        padding: 1.5rem;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile (≤767px) */
+@media (max-width: 767.98px) {
+    .carousel-item {
+        height: 60vh;
+    }
+    
+    .carousel-caption {
+        bottom: 5%;
+        left: 2%;
+        right: 2%;
+        max-width: 96%;
+        padding: 1rem;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .carousel-caption p {
+        font-size: 1rem;
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use Exception;
+use RuntimeException;
 use PDO;
 use PDOException;
 
@@ -37,10 +39,12 @@ class Database
      */
     public static function loadConfig(string $configPath): void
     {
-        if (!file_exists($configPath)) {
-            throw new RuntimeException("Archivo de configuración de DB no encontrado: $configPath");
+        $absolutePath = realpath($configPath) ?: $configPath;
+        if (!file_exists($absolutePath)) {
+            throw new RuntimeException("Archivo de configuración de DB no encontrado: $absolutePath");
         }
-        self::$config = require $configPath;
+        self::$config = require $absolutePath;
+
     }
 
     /**
@@ -52,8 +56,13 @@ class Database
      */
     public static function getInstance(): PDO
     {
-        if (self::$config === null) {
+        // CAMBIO CLAVE: Validación mejorada de configuración
+        if (empty(self::$config)) { // Cambiado de === null a empty()
             throw new Exception("Configuración no cargada. Llama a loadConfig() primero");
+        }
+
+        if (empty(self::$config['database'])) {
+            throw new Exception("Nombre de base de datos no configurado. Verifique DB_NAME en .env");
         }
 
         if (self::$instance === null) {
@@ -66,24 +75,27 @@ class Database
                 self::$config['charset'] ?? 'utf8mb4'
             );
 
-            // Validar que tenemos los datos mínimos
-            if (empty(self::$config['database']) || empty(self::$config['username'])) {
-                throw new \Exception("Configuración de base de datos incompleta. Revisa tu archivo .env y config/database.php");
+            // CAMBIO CLAVE: Validación más completa
+            $required = ['database', 'username', 'host'];
+            foreach ($required as $key) {
+                if (empty(self::$config[$key])) {
+                    throw new Exception("Falta configuración requerida: $key");
+                }
             }
 
             try {
                 self::$instance = new PDO(
                     $dsn,
                     self::$config['username'],
-                    self::$config['password'] ?? '', // La contraseña puede ser vacía
-                    self::$config['options'] ?? [] // Usar opciones definidas o un array vacío
+                    self::$config['password'] ?? '',
+                    self::$config['options'] ?? [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                    ]
                 );
             } catch (PDOException $e) {
-                // En un entorno de producción, loguear el error en lugar de mostrarlo directamente.
                 error_log("Error de conexión a la base de datos: " . $e->getMessage());
-                // Mostrar un mensaje genérico al usuario para no exponer detalles.
-                // Podrías tener una página de error dedicada.
-                throw new PDOException("Error al conectar con la base de datos. Por favor, inténtelo más tarde o contacte al administrador.", 0, $e);
+                throw new PDOException("Error al conectar con la base de datos", 0, $e);
             }
         }
 

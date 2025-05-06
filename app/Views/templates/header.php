@@ -67,26 +67,7 @@
             color: #ffc107; /* Resaltar al pasar el mouse o si está activo */
             /* text-decoration: underline; */
         }
-        footer {
-            background-color: #343a40; /* Mismo color que el header */
-            color: #adb5bd; /* Color de texto más suave */
-            padding: 2rem 0;
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.9em;
-            border-top: 3px solid #ffc107; /* Mismo borde que el header */
-        }
-        footer a {
-            color: #ced4da;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        footer a:hover {
-            color: #ffc107;
-        }
-        footer p {
-            margin-bottom: 0.5rem;
-        }
+        
         .main-content {
              min-height: calc(100vh - 250px); /* Empuja el footer hacia abajo (ajustar altura header/footer) */
              padding-top: 20px;

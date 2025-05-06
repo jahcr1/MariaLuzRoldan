@@ -3,14 +3,14 @@
 </div> <!-- Cierre de .container (contenido principal) -->
 </main> <!-- Cierre de .main-content -->
 
-<footer class="bg-dark text-light mt-5 py-4">
+<footer class="bg-dark text-dark mt-5 py-4">
     <div class="container text-center">
         <p>&copy; <?= date('Y') ?> <?= APP_NAME ?>. Todos los derechos reservados.</p>
         <!-- Podríamos añadir enlaces a redes sociales aquí -->
         <div>
-            <a href="#" class="text-light me-2"><i class="fab fa-facebook-f"></i></a> <!-- Necesitarías FontAwesome u otros iconos -->
-            <a href="#" class="text-light me-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a> <!-- Necesitarías FontAwesome u otros iconos -->
+            <a href="#" class="text-dark me-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </footer>
