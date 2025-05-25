@@ -26,6 +26,9 @@ define('CONFIG_PATH', BASE_PATH . '/config');
 define('PUBLIC_PATH', __DIR__);
 define('VIEWS_PATH', APP_PATH . '/Views');
 
+// Iniciar sesión para todo el sitio
+session_start();
+
 // Cargar el autoloader de Composer
 require_once BASE_PATH . '/vendor/autoload.php';
 
@@ -49,14 +52,55 @@ App\Core\Database::loadConfig(__DIR__ . '/../config/database.php');
 $router = new App\Core\Router();
 
 // Definir las rutas de la aplicación
+// Rutas principales del sitio
 $router->add('/', ['controller' => 'ControladorInicio', 'action' => 'index']);
 $router->add('/tienda', ['controller' => 'ControladorTienda', 'action' => 'index']);
-$router->add('/tienda/libro/{id}', ['controller' => 'ShopController', 'action' => 'showBook']); // Ruta con parámetro
-$router->add('/contacto', ['controller' => 'ContactController', 'action' => 'index']);
+$router->add('/tienda/libro/{id}', ['controller' => 'ControladorTienda', 'action' => 'libro']); // Ruta con parámetro
+$router->add('/tienda/buscar', ['controller' => 'ControladorTienda', 'action' => 'buscar']); // Búsqueda de libros
+$router->add('/contacto', ['controller' => 'ControladorContacto', 'action' => 'index']);
+$router->add('/contacto/enviar', ['controller' => 'ControladorContacto', 'action' => 'enviar']); // Envío de formulario
 $router->add('/noticias', ['controller' => 'ControladorNoticias', 'action' => 'index']);
-$router->add('/admin/productos', ['controller' => 'Admin\ProductController', 'action' => 'index']); // Ruta admin
-$router->add('/slides/obtener', ['controller' => 'ControladorSlide', 'action' => 'obtenerSlides'
-]);
+$router->add('/noticias/{slug}', ['controller' => 'ControladorNoticias', 'action' => 'mostrar']); // Detalle de noticia
+$router->add('/slides/obtener', ['controller' => 'ControladorSlide', 'action' => 'obtenerSlides']);
+
+// Rutas del panel de administración
+$router->add('/admin', ['controller' => 'ControladorPanel', 'action' => 'index']);
+$router->add('/admin/login', ['controller' => 'ControladorPanel', 'action' => 'login']);
+$router->add('/admin/autenticar', ['controller' => 'ControladorPanel', 'action' => 'autenticar']);
+$router->add('/admin/logout', ['controller' => 'ControladorPanel', 'action' => 'logout']);
+
+// Rutas de administración de libros
+$router->add('/admin/libros', ['controller' => 'ControladorPanel', 'action' => 'libros']);
+$router->add('/admin/libros/crear', ['controller' => 'ControladorLibro', 'action' => 'crear']);
+$router->add('/admin/libros/editar/{id}', ['controller' => 'ControladorLibro', 'action' => 'editar']);
+$router->add('/admin/libros/eliminar/{id}', ['controller' => 'ControladorLibro', 'action' => 'eliminar']);
+
+// Rutas de administración de noticias
+$router->add('/admin/noticias', ['controller' => 'ControladorPanel', 'action' => 'noticias']);
+$router->add('/admin/noticias/crear', ['controller' => 'ControladorNoticia', 'action' => 'crear']);
+$router->add('/admin/noticias/editar/{id}', ['controller' => 'ControladorNoticia', 'action' => 'editar']);
+$router->add('/admin/noticias/eliminar/{id}', ['controller' => 'ControladorNoticia', 'action' => 'eliminar']);
+
+// Rutas de administración de presentaciones
+$router->add('/admin/presentaciones', ['controller' => 'ControladorPanel', 'action' => 'presentaciones']);
+$router->add('/admin/presentaciones/crear', ['controller' => 'ControladorPresentacion', 'action' => 'crear']);
+$router->add('/admin/presentaciones/editar/{id}', ['controller' => 'ControladorPresentacion', 'action' => 'editar']);
+$router->add('/admin/presentaciones/eliminar/{id}', ['controller' => 'ControladorPresentacion', 'action' => 'eliminar']);
+
+// Rutas de administración de slides
+$router->add('/admin/slides', ['controller' => 'ControladorPanel', 'action' => 'slides']);
+$router->add('/admin/slides/crear', ['controller' => 'ControladorSlide', 'action' => 'crear']);
+$router->add('/admin/slides/editar/{id}', ['controller' => 'ControladorSlide', 'action' => 'editar']);
+$router->add('/admin/slides/eliminar/{id}', ['controller' => 'ControladorSlide', 'action' => 'eliminar']);
+
+// Rutas de administración de usuarios (solo para admin)
+$router->add('/admin/usuarios', ['controller' => 'ControladorPanel', 'action' => 'usuarios']);
+$router->add('/admin/usuarios/crear', ['controller' => 'ControladorUsuario', 'action' => 'crear']);
+$router->add('/admin/usuarios/editar/{id}', ['controller' => 'ControladorUsuario', 'action' => 'editar']);
+$router->add('/admin/usuarios/eliminar/{id}', ['controller' => 'ControladorUsuario', 'action' => 'eliminar']);
+
+// Debug: Loggear las rutas registradas
+error_log("Rutas registradas");
 
 // Obtener la URL solicitada (quitando el nombre del directorio base si es necesario)
 $url = $_SERVER['REQUEST_URI'];

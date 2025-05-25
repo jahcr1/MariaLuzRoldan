@@ -85,17 +85,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+                <?php 
+                // Determinar si estamos en la página de inicio
+                $isHomePage = ($_SERVER['REQUEST_URI'] == '/' || strpos($_SERVER['REQUEST_URI'], '/index') !== false || $_SERVER['REQUEST_URI'] == APP_URL); 
+                ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#sobre-mi">Sobre mí</a>
+                    <a class="nav-link" href="<?= $isHomePage ? '#sobre-mi' : APP_URL.'/#sobre-mi' ?>">Sobre mí</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#nuevos-lanzamientos">Nuevos Lanzamientos</a>
+                    <a class="nav-link" href="<?= $isHomePage ? '#nuevos-lanzamientos' : APP_URL.'/#nuevos-lanzamientos' ?>">Nuevos Lanzamientos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= APP_URL ?>/noticias">Noticias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tienda">Tienda</a>
+                    <a class="nav-link" href="<?= APP_URL ?>/tienda">Tienda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= APP_URL ?>/contacto">Contacto</a>
