@@ -1,55 +1,89 @@
 <?php
-declare(strict_types=1);
-
 namespace App\Controllers;
 
-// Controlador principal para la página de inicio. Define la acción 'index' que carga la vista principal.
-
 use App\Core\Controller;
-use App\Models\Noticia; // Agregar el uso del modelo Noticia
+use App\Models\Noticia;
+use App\Models\Slide;
+use App\Models\Libro;
+use App\Models\Presentacion;
+use App\Models\Imagen;
 
-class ControladorInicio extends Controller {
-
+/**
+ * Controlador principal para la página de inicio
+ */
+class ControladorInicio extends Controller
+{
     /**
      * Muestra la página de inicio.
      */
-    public function index(): void {
-        // Aquí podríamos cargar datos del modelo si fuera necesario
-        $pageTitle = "Inicio - Mi Sitio Web";
-        $pageDescription = "Bienvenido a mi sitio web personal.";
+    public function index()
+    {
+        // Cargar todos los datos necesarios para la página principal
+        $datos = [
+            'titulo' => 'Inicio - Maria Luz Roldan',
+            'slides' => $this->obtenerSlides(),
+            'noticias' => $this->obtenerNoticias(),
+            'presentaciones' => $this->obtenerPresentaciones(),
+            'libros' => $this->obtenerLibrosRecientes(),
+            'galeria' => $this->obtenerGaleria()
+        ];
 
-        $noticiaModel = new Noticia();
-        $noticiasDestacadas = $noticiaModel->getParaPortada();
-        
-        // Cargar la vista
-        $this->render('paginas/inicio', [
-            'pageTitle' => $pageTitle,
-            'pageDescription' => $pageDescription,
-            'noticiasDestacadas' => $noticiasDestacadas,
-            // Pasar más datos a la vista si es necesario
-        ]);
+        // Renderizar vista
+        $this->render('paginas/inicio', $datos);
     }
-
+    
     /**
-     * Renderiza una vista con su layout (header/footer).
-     *
-     * @param string $view La ruta de la vista relativa a app/Views/.
-     * @param array $data Datos para pasar a la vista.
+     * Obtiene los slides para el carrusel principal
+     * 
+     * @return array Slides activos
      */
-    protected function render(string $view, array $data = []): void {
-        // Extrae los datos para que estén disponibles como variables en la vista
-        extract($data, EXTR_SKIP);
-
-        $viewFile = "../app/Views/{$view}.php";
-
-        if (is_readable($viewFile)) {
-            require '../app/Views/templates/header.php';
-            require $viewFile;
-            require '../app/Views/templates/footer.php';
-        } else {
-            // Podríamos lanzar una excepción o mostrar un error
-            echo "Error: No se pudo encontrar la vista {$viewFile}";
-            // O usar el método notFound del Router si estuviera disponible aquí
-        }
+    private function obtenerSlides(): array
+    {
+        $modelo = new Slide();
+        return $modelo->obtenerActivos();
+    }
+    
+    /**
+     * Obtiene las noticias destacadas para la portada
+     * 
+     * @return array Noticias destacadas
+     */
+    private function obtenerNoticias(): array
+    {
+        $modelo = new Noticia();
+        return $modelo->obtenerParaPortada();
+    }
+    
+    /**
+     * Obtiene las próximas presentaciones
+     * 
+     * @return array Próximas presentaciones
+     */
+    private function obtenerPresentaciones(): array
+    {
+        $modelo = new Presentacion();
+        return $modelo->obtenerProximas();
+    }
+    
+    /**
+     * Obtiene los últimos libros publicados
+     * 
+     * @return array Últimos libros publicados
+     */
+    private function obtenerLibrosRecientes(): array
+    {
+        $modelo = new Libro();
+        return $modelo->obtenerUltimosLanzamientos();
+    }
+    
+    /**
+     * Obtiene imágenes para la galería de la página de inicio
+     * 
+     * @return array Imágenes para mostrar en la galería
+     */
+    private function obtenerGaleria(): array
+    {
+        $modelo = new Imagen();
+        return $modelo->obtenerParaInicio();
     }
 }

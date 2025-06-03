@@ -7,6 +7,8 @@ use App\Models\Libro;
 use App\Models\Noticia;
 use App\Models\Slide;
 use App\Models\Presentacion;
+use App\Models\Album;
+use App\Models\Imagen;
 
 /**
  * ControladorPanel
@@ -20,6 +22,8 @@ class ControladorPanel extends Controller
     protected $noticiaModel;
     protected $slideModel;
     protected $presentacionModel;
+    protected $albumModel;
+    protected $imagenModel;
     
     /**
      * Constructor - inicializa modelos necesarios
@@ -259,6 +263,87 @@ class ControladorPanel extends Controller
         $this->render('admin/usuarios/listar', [
             'pageTitle' => 'Administrar Usuarios',
             'usuarios' => $usuarios
+        ]);
+    }
+    
+    /*
+     * GESTIÓN DE GALERÍA
+     */
+    
+    /**
+     * Mostrar panel principal de galería
+     */
+    public function galeria()
+    {
+        if (!$this->albumModel) {
+            $this->albumModel = new Album();
+        }
+        
+        if (!$this->imagenModel) {
+            $this->imagenModel = new Imagen();
+        }
+        
+        $totalAlbums = $this->albumModel->contarTodos();
+        $totalImagenes = $this->imagenModel->contarTodas();
+        $albumsRecientes = $this->albumModel->obtenerRecientes(5);
+        
+        $this->render('admin/galeria/index', [
+            'pageTitle' => 'Gestión de Galería',
+            'totalAlbums' => $totalAlbums,
+            'totalImagenes' => $totalImagenes,
+            'albumsRecientes' => $albumsRecientes
+        ]);
+    }
+    
+    /**
+     * Listar álbumes
+     */
+    public function albums()
+    {
+        if (!$this->albumModel) {
+            $this->albumModel = new Album();
+        }
+        
+        $albums = $this->albumModel->obtenerTodos();
+        
+        $this->render('admin/galeria/albums/listar', [
+            'pageTitle' => 'Administrar Álbumes',
+            'albums' => $albums
+        ]);
+    }
+    
+    /**
+     * Listar imágenes (todas o por álbum)
+     */
+    public function imagenes()
+    {
+        if (!$this->imagenModel) {
+            $this->imagenModel = new Imagen();
+        }
+        
+        if (!$this->albumModel) {
+            $this->albumModel = new Album();
+        }
+        
+        $albumId = isset($_GET['album_id']) ? (int)$_GET['album_id'] : null;
+        
+        if ($albumId) {
+            $album = $this->albumModel->obtener($albumId);
+            $imagenes = $this->imagenModel->obtenerPorAlbum($albumId);
+            $pageTitle = 'Imágenes del álbum: ' . ($album ? $album['titulo'] : 'Desconocido');
+        } else {
+            $imagenes = $this->imagenModel->obtenerTodas();
+            $pageTitle = 'Todas las imágenes';
+        }
+        
+        $albums = $this->albumModel->obtenerTodos(); // Para el selector de álbumes
+        
+        $this->render('admin/galeria/imagenes/listar', [
+            'pageTitle' => $pageTitle,
+            'imagenes' => $imagenes,
+            'albums' => $albums,
+            'albumId' => $albumId,
+            'albumActual' => $albumId ? ($album ?? null) : null
         ]);
     }
 }

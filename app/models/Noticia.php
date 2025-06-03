@@ -133,20 +133,38 @@ class Noticia
 
     /**
      * Obtiene noticias para portada (2 destacadas)
+     * 
+     * @param int $limite Cantidad de noticias a obtener
+     * @return array Lista de noticias para mostrar en la portada
+     */
+    public function obtenerParaPortada(int $limite = 3): array
+    {
+        try {
+            $stmt = $this->db->prepare("
+                SELECT id, titulo, slug, extracto as resumen, contenido, imagen, 
+                       fecha_publicacion
+                FROM noticias 
+                WHERE activo = 1
+                ORDER BY fecha_publicacion DESC
+                LIMIT :limite
+            ");
+            
+            $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Error en Noticia::obtenerParaPortada: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Obtiene noticias para portada (2 destacadas)
+     * @deprecated Usar obtenerParaPortada() en su lugar
      */
     public function getParaPortada(): array
     {
-        $stmt = $this->db->prepare("
-            SELECT id, titulo, resumen, imagen_preview as imagen, 
-                   fecha_publicacion, plataforma, url_origen
-            FROM noticias 
-            WHERE activo = 1
-            ORDER BY es_destacada DESC, fecha_publicacion DESC
-            LIMIT 2
-        ");
-        
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->obtenerParaPortada(2);
     }
 
     // --- Métodos Futuros (Opcional) ---

@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Core\Database;
 use PDO;
+use PDOException;
 
 /**
  * Modelo Usuario
@@ -105,6 +106,11 @@ class Usuario
      */
     public function crear(array $datos)
     {
+        // Verificar que el rol sea válido (admin/cliente)
+        if (!in_array($datos['rol'], ['admin', 'cliente'])) {
+            return false;
+        }
+        
         // Verificar si el email ya existe
         if ($this->emailExiste($datos['email'])) {
             return false;
@@ -117,7 +123,7 @@ class Usuario
         $stmt->bindValue(':nombre', $datos['nombre'], PDO::PARAM_STR);
         $stmt->bindValue(':email', $datos['email'], PDO::PARAM_STR);
         $stmt->bindValue(':password', password_hash($datos['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
-        $stmt->bindValue(':rol', $datos['rol'] ?? 'editor', PDO::PARAM_STR);
+        $stmt->bindValue(':rol', $datos['rol'], PDO::PARAM_STR);
         $stmt->bindValue(':activo', isset($datos['activo']) ? 1 : 0, PDO::PARAM_BOOL);
         
         if ($stmt->execute()) {
@@ -138,6 +144,11 @@ class Usuario
     {
         // Si cambia el email, verificar que no exista
         if (isset($datos['email']) && $this->emailExiste($datos['email'], $id)) {
+            return false;
+        }
+        
+        // Verificar que el rol sea válido (admin/cliente)
+        if (isset($datos['rol']) && !in_array($datos['rol'], ['admin', 'cliente'])) {
             return false;
         }
         
@@ -202,25 +213,69 @@ class Usuario
      * Verificar si un email ya existe
      * 
      * @param string $email Email a verificar
-     * @param int|null $excluirId ID de usuario a excluir (para actualizaciones)
+     * @param int|null $exceptId ID a exceptuar (para actualizaciones)
      * @return bool True si el email ya existe
      */
-    protected function emailExiste(string $email, ?int $excluirId = null): bool
+    protected function emailExiste(string $email, ?int $exceptId = null): bool
     {
-        $sql = "SELECT COUNT(*) FROM usuarios WHERE email = :email";
+        $sql = "SELECT id FROM usuarios WHERE email = :email";
         
-        if ($excluirId !== null) {
+        if ($exceptId) {
             $sql .= " AND id != :id";
         }
         
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         
-        if ($excluirId !== null) {
-            $stmt->bindValue(':id', $excluirId, PDO::PARAM_INT);
+        if ($exceptId) {
+            $stmt->bindValue(':id', $exceptId, PDO::PARAM_INT);
         }
         
         $stmt->execute();
-        return (int)$stmt->fetchColumn() > 0;
+        return (bool)$stmt->fetch();
+    }
+    
+    /**
+     * Obtiene el total de administradores
+     * 
+     * @return int Número de administradores
+     */
+    public function obtenerTotalAdmins(): int
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM usuarios WHERE rol = 'admin'");
+            $stmt->execute();
+            return (int)$stmt->fetchColumn();
+        } catch (PDOException $e) {
+            error_log("Error en Usuario::obtenerTotalAdmins: " . $e->getMessage());
+            return 0;
+        }
+    }
+    
+    /**
+     * Verifica si existe al menos un administrador
+     * 
+     * @return bool True si existe al menos un administrador
+     */
+    public function existeAdmin(): bool
+    {
+        return $this->obtenerTotalAdmins() > 0;
+    }
+    
+    /**
+     * Obtiene el total de clientes
+     * 
+     * @return int Número de clientes
+     */
+    public function obtenerTotalClientes(): int
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM usuarios WHERE rol = 'cliente'");
+            $stmt->execute();
+            return (int)$stmt->fetchColumn();
+        } catch (PDOException $e) {
+            error_log("Error en Usuario::obtenerTotalClientes: " . $e->getMessage());
+            return 0;
+        }
     }
 }

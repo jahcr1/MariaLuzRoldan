@@ -11,11 +11,11 @@ use PDO;
  */
 class Presentacion
 {
-    private PDO $db;
+    protected PDO $db;
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance();
     }
 
     /**

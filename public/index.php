@@ -63,6 +63,15 @@ $router->add('/noticias', ['controller' => 'ControladorNoticias', 'action' => 'i
 $router->add('/noticias/{slug}', ['controller' => 'ControladorNoticias', 'action' => 'mostrar']); // Detalle de noticia
 $router->add('/slides/obtener', ['controller' => 'ControladorSlide', 'action' => 'obtenerSlides']);
 
+// Rutas para presentaciones
+$router->add('/presentaciones', ['controller' => 'ControladorPresentaciones', 'action' => 'index']);
+$router->add('/presentaciones/pagina/{pagina:\d+}', ['controller' => 'ControladorPresentaciones', 'action' => 'index']);
+$router->add('/presentaciones/detalle/{id:\d+}', ['controller' => 'ControladorPresentaciones', 'action' => 'detalle']);
+
+// Rutas para galería
+$router->add('/galeria', ['controller' => 'ControladorGaleria', 'action' => 'index']);
+$router->add('/galeria/album/{id:\d+}', ['controller' => 'ControladorGaleria', 'action' => 'album']);
+
 // Rutas del panel de administración
 $router->add('/admin', ['controller' => 'ControladorPanel', 'action' => 'index']);
 $router->add('/admin/login', ['controller' => 'ControladorPanel', 'action' => 'login']);
@@ -92,6 +101,17 @@ $router->add('/admin/slides', ['controller' => 'ControladorPanel', 'action' => '
 $router->add('/admin/slides/crear', ['controller' => 'ControladorSlide', 'action' => 'crear']);
 $router->add('/admin/slides/editar/{id}', ['controller' => 'ControladorSlide', 'action' => 'editar']);
 $router->add('/admin/slides/eliminar/{id}', ['controller' => 'ControladorSlide', 'action' => 'eliminar']);
+
+// Rutas de administración de la galería
+$router->add('/admin/galeria', ['controller' => 'ControladorPanel', 'action' => 'galeria']);
+$router->add('/admin/galeria/albums', ['controller' => 'ControladorPanel', 'action' => 'albums']);
+$router->add('/admin/galeria/albums/crear', ['controller' => 'ControladorAlbum', 'action' => 'crear']);
+$router->add('/admin/galeria/albums/editar/{id}', ['controller' => 'ControladorAlbum', 'action' => 'editar']);
+$router->add('/admin/galeria/albums/eliminar/{id}', ['controller' => 'ControladorAlbum', 'action' => 'eliminar']);
+$router->add('/admin/galeria/imagenes', ['controller' => 'ControladorPanel', 'action' => 'imagenes']);
+$router->add('/admin/galeria/imagenes/crear', ['controller' => 'ControladorImagen', 'action' => 'crear']);
+$router->add('/admin/galeria/imagenes/editar/{id}', ['controller' => 'ControladorImagen', 'action' => 'editar']);
+$router->add('/admin/galeria/imagenes/eliminar/{id}', ['controller' => 'ControladorImagen', 'action' => 'eliminar']);
 
 // Rutas de administración de usuarios (solo para admin)
 $router->add('/admin/usuarios', ['controller' => 'ControladorPanel', 'action' => 'usuarios']);

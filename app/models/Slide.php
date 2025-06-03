@@ -14,15 +14,33 @@ class Slide
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Obtiene los slides activos para mostrar en el carrusel
+     * 
+     * @return array Lista de slides activos ordenados por el campo orden
+     */
+    public function obtenerActivos(): array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT id, titulo, descripcion, imagen, enlace 
+                FROM slides 
+                WHERE activo = 1 
+                ORDER BY orden ASC 
+                LIMIT 5");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Error en Slide::obtenerActivos: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * @deprecated Usar obtenerActivos() en su lugar
+     */
     public function getActiveSlides()
     {
-        $stmt = $this->db->prepare("SELECT id, titulo, descripcion, imagen 
-            FROM slides 
-            WHERE activo = 1 
-            ORDER BY orden ASC 
-            LIMIT 5");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->obtenerActivos();
     }
 
     // Métodos para el panel administrativo

@@ -54,8 +54,11 @@ class Libro
 
     /**
      * Obtiene los últimos libros publicados
+     * 
+     * @param int $limite Cantidad de libros a obtener
+     * @return array Lista de libros recientes
      */
-    public function getUltimosLanzamientos(int $limit = 4): array
+    public function obtenerUltimosLanzamientos(int $limite = 4): array
     {
         try {
             $stmt = $this->db->prepare("
@@ -69,15 +72,24 @@ class Libro
                 FROM libros
                 WHERE activo = 1
                 ORDER BY created_at DESC
-                LIMIT :limit
+                LIMIT :limite
             ");
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Error en Libro::getUltimosLanzamientos: " . $e->getMessage());
+            error_log("Error en Libro::obtenerUltimosLanzamientos: " . $e->getMessage());
             return [];
         }
+    }
+    
+    /**
+     * Obtiene los últimos libros publicados
+     * @deprecated Usar obtenerUltimosLanzamientos() en su lugar
+     */
+    public function getUltimosLanzamientos(int $limit = 4): array
+    {
+        return $this->obtenerUltimosLanzamientos($limit);
     }
     
     /**

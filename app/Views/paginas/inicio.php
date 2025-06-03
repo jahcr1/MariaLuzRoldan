@@ -179,53 +179,60 @@ if (isset($this->data['slides'])) {
                         Noticias Recientes
                     </a>
                 </h3>
-                <article class="mb-4 border-bottom pb-3">
-                    <h4><a href="#">Título Noticia 1 (Cargado desde DB)</a></h4>
-                    <p class="text-muted">Fecha Noticia 1</p>
-                    <p>Extracto de la noticia cargada desde la base de datos...</p>
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Leer Más</a>
-                </article>
-                <article class="mb-4 border-bottom pb-3">
-                    <h4><a href="#">Título Noticia 2 (Cargado desde DB)</a></h4>
-                    <p class="text-muted">Fecha Noticia 2</p>
-                    <p>Otro extracto de noticia cargada dinámicamente...</p>
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Leer Más</a>
-                </article>
-                <!-- Aquí iría la lógica PHP para cargar noticias -->
-                <p class="text-center fst-italic">[Placeholder: Aquí se cargarán dinámicamente las noticias]</p>
+                <?php if(empty($noticias)): ?>
+                <p class="fst-italic">No hay noticias recientes para mostrar.</p>
+                <?php else: ?>
+                    <?php foreach($noticias as $noticia): ?>
+                    <article class="mb-4 border-bottom pb-3">
+                        <h4>
+                            <a href="<?= APP_URL ?>/noticias/<?= htmlspecialchars($noticia['slug']) ?>" class="text-decoration-none">
+                                <?= htmlspecialchars($noticia['titulo']) ?>
+                            </a>
+                        </h4>
+                        <p class="text-muted"><?= date('d/m/Y', strtotime($noticia['fecha_publicacion'])) ?></p>
+                        <p><?= htmlspecialchars($noticia['extracto'] ?? substr(strip_tags($noticia['contenido']), 0, 200) . '...') ?></p>
+                        <a href="<?= APP_URL ?>/noticias/<?= htmlspecialchars($noticia['slug']) ?>" class="btn btn-sm btn-outline-secondary">Leer Más</a>
+                    </article>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
+                <div class="text-end mt-3">
+                    <a href="<?= APP_URL ?>/noticias" class="btn btn-link">Ver todas las noticias →</a>
+                </div>
             </div>
 
             <!-- Columna Presentaciones -->
             <div class="col-lg-5" data-aos="fade-left" data-aos-delay="100">
-            <a href="<?= APP_URL ?>/noticias" class="mb-4 text-decoration-none">
+            <h3 class="mb-4">
+                <a href="<?= APP_URL ?>/presentaciones" class="text-decoration-none">
                     Próximas Presentaciones
                 </a>
-                <div class="list-group">
-                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Lugar Presentación 1</h5>
-                            <small class="text-muted">DD/MM/AAAA</small>
-                        </div>
-                        <p class="mb-1">Breve descripción o detalles del evento 1. Dirección, horario, etc.</p>
+            </h3>
+                
+            <?php if(empty($presentaciones)): ?>
+            <p class="fst-italic">No hay presentaciones programadas por el momento.</p>
+            <?php else: ?>
+            <div class="list-group">
+                <?php foreach($presentaciones as $presentacion): ?>
+                <a href="<?= APP_URL ?>/presentaciones/detalle/<?= $presentacion['id'] ?>" class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><?= htmlspecialchars($presentacion['lugar']) ?></h5>
+                        <small class="text-muted"><?= date('d/m/Y', strtotime($presentacion['fecha_evento'])) ?></small>
                     </div>
-                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Lugar Presentación 2</h5>
-                            <small class="text-muted">DD/MM/AAAA</small>
-                        </div>
-                        <p class="mb-1">Breve descripción o detalles del evento 2.</p>
-                    </div>
-                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Lugar Presentación 3</h5>
-                            <small class="text-muted">DD/MM/AAAA</small>
-                        </div>
-                        <p class="mb-1">Breve descripción o detalles del evento 3.</p>
-                    </div>
-                </div>
+                    <p class="mb-1"><?= htmlspecialchars(substr($presentacion['descripcion'], 0, 120) . (strlen($presentacion['descripcion']) > 120 ? '...' : '')) ?></p>
+                    <small class="text-muted"><?= date('H:i', strtotime($presentacion['fecha_evento'])) ?> hs</small>
+                </a>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="text-end mt-3">
+                <a href="<?= APP_URL ?>/presentaciones" class="btn btn-link">Ver todas las presentaciones →</a>
+            </div>
+            <?php endif; ?>
             </div>
         </div>
     </div>
+    
 </section>
 
 <!-- ==========================
